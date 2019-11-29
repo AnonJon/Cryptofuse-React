@@ -1,0 +1,300 @@
+* {
+  outline: none !important;
+}
+
+/* ---------------------------------------------navigation menu-------------------------- */
+.MdReorder {
+  float: left;
+  margin: 10px 0 10px 10px;
+}
+.MdClear {
+  float: left;
+  margin: 10px 0 10px 10px;
+}
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+  min-height: 10vh;
+  background: rgb(37, 43, 45);
+  padding-top: 20px;
+  color: white;
+  top: 0;
+  position: static;
+}
+
+li {
+  color: white;
+}
+.nav-links {
+  width: 50%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  list-style: none;
+}
+.logo {
+  height: 50px;
+  width: 244px;
+}
+
+/* -----------------------------------------------------------home----------------------------------- */
+.title {
+  position: relative;
+  height: 1200px;
+  text-align: center;
+  background: linear-gradient(
+    360deg,
+    rgb(250, 250, 250) 0%,
+    rgb(88, 3, 17) 100%
+  );
+}
+.title-div {
+  color: white;
+  position: absolute;
+  top: 30%;
+  left: 35%;
+}
+.companies {
+  display: flex;
+  justify-content: space-around;
+  background: linear-gradient(
+    360deg,
+    rgb(245, 245, 245) 0%,
+    rgb(250, 250, 250) 100%
+  );
+}
+.company-logo-1 {
+  height: 150px;
+  width: 200px;
+}
+.company-logo-2 {
+  height: 80px;
+  width: 200px;
+}
+.company-logo-3 {
+  height: 150px;
+  width: 200px;
+}
+
+.home-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background: whitesmoke;
+  padding: 100px;
+}
+#home-stat-1 {
+  text-align: center;
+}
+#home-stat-1 h1 {
+  color: rgb(201, 15, 15);
+  font-size: 70px;
+  font-weight: 300;
+}
+#home-stat-2 {
+  text-align: center;
+}
+#home-stat-2 h1 {
+  color: rgb(201, 15, 15);
+  font-size: 70px;
+  font-weight: 300;
+}
+#home-stat-3 {
+  text-align: center;
+}
+#home-stat-3 h1 {
+  color: rgb(201, 15, 15);
+  font-size: 70px;
+  font-weight: 300;
+}
+.home-why-cryptofuse h1 {
+  text-align: center;
+  padding-top: 100px;
+  font-size: 56px;
+  font-weight: 500;
+}
+.explain-icons-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.explain-icons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 100px;
+
+  width: 1100px;
+}
+.icon {
+  text-align: center;
+  width: 250px;
+  padding: 30px;
+}
+.icon img {
+  height: 40px;
+  width: 40px;
+}
+/* -----how it works--- */
+.howItWorks {
+  padding: 100px;
+  background-image: linear-gradient(90deg, rgb(210, 27, 70), rgb(245, 14, 4));
+}
+.howItWorks h2,
+.howItWorks p,
+.howItWorks h3 {
+  text-align: center;
+  color: whitesmoke;
+}
+.howItWorks h2 {
+  font-size: 30px;
+  font-weight: 600;
+}
+.howItWorks-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.howItWorks-icon img {
+  height: 40px;
+  width: 40px;
+}
+.howItWorks-icon {
+  text-align: center;
+  width: 250px;
+  padding: 60px;
+}
+
+/* ---------------------------------------------------learn-more--------------------------- */
+.whatWeDo {
+  display: flex;
+  flex-direction: row;
+}
+#agenda-analysis {
+  width: 600px;
+  height: 561px;
+}
+/* ----------------------------------------login----------------------- */
+
+.login-avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.beaker-img-login {
+  height: 55px;
+  width: 50px;
+}
+
+/* -------------------------------------------------------------Portfolio-------------------------------------- */
+.portfolio-head {
+  text-align: center;
+  background-image: linear-gradient(90deg, rgb(210, 27, 70), rgb(245, 14, 4));
+  height: 150px;
+  padding-top: 40px;
+  color: whitesmoke;
+}
+.portfolio-container {
+  padding-top: 200px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding-bottom: 200px;
+}
+.portfolio-left-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  width: 500px;
+  justify-content: space-between;
+  padding-left: 30px;
+}
+.portfolio-coin {
+  text-align: center;
+  margin: 12px;
+  padding: 15px;
+  border-bottom: 1px solid grey;
+}
+.portfolio-right-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 600px;
+}
+.portfolio-right-wrapper h1 {
+  text-align: center;
+}
+#coin-percentage {
+  font-weight: bold;
+}
+
+/* -----------------------------------------------------------Dashboard------------------------------------ */
+
+/* --------------------------------------------------------footer------------------------------------- */
+.footerContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background: rgb(41, 47, 49);
+  padding-top: 50px;
+  flex-wrap: wrap;
+}
+.footer-left {
+  max-width: 350px;
+}
+.footer-left p {
+  color: rgb(216, 211, 211);
+}
+.footer-left h2 {
+  color: rgb(216, 211, 211);
+}
+.footer-logo {
+  height: 71px;
+  width: 350px;
+}
+
+.footer-envelope {
+  height: 20px;
+  width: 20px;
+}
+
+.footer-company {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  background: rgb(35, 39, 42);
+  color: rgb(216, 211, 211);
+}
+/* -----------------------------------terms-conditions---------------------- */
+.terms-header {
+  background-image: linear-gradient(90deg, rgb(210, 27, 70), rgb(245, 14, 4));
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: whitesmoke;
+}
+.terms-header h1 {
+  font-size: 56px;
+  font-weight: 700;
+}
+.terms-flexbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.terms-conditions-container {
+  width: 1000px;
+}
+.terms-conditions-container h3 {
+  font-size: 30px;
+  color: #333333;
+
+  font-family: Arial, Helvetica, sans-serif;
+}

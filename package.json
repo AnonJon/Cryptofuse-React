@@ -1,0 +1,27 @@
+{
+  "name": "Cryptofuse",
+  "version": "1.0.0",
+  "description": "Cryptofuse",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "cd client && npm install",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "author": "Jon Gregis",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "blockchain.info": "^2.12.1",
+    "concurrently": "^4.1.1",
+    "config": "^3.2.3",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.7.7",
+    "nodemon": "^1.19.1",
+    "react-chartjs-2": "^2.8.0"
+  }
+}
