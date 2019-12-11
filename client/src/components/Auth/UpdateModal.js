@@ -12,7 +12,7 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { update } from "../../actions/authActions";
+import { updateCoinTotal } from "../../actions/userActions";
 import { clearErrors } from "../../actions/errorActions";
 
 import ListItem from "@material-ui/core/ListItem";
@@ -32,7 +32,7 @@ class UpdateModal extends Component {
   state = {
     modal: false,
 
-    password: "",
+    coin_total: "",
     msg: null
   };
 
@@ -77,45 +77,40 @@ class UpdateModal extends Component {
   onSubmit = e => {
     e.preventDefault();
 
-    const { password } = this.state;
+    const { coin_total } = this.state;
 
     const user = {
-      password
+      coin_total
     };
 
     // Attempt to login
-    this.props.update(user);
+    this.props.updateCoinTotal(user);
   };
 
   render() {
     return (
-      <div data-tip="Update Password">
-        <ReactTooltip />
-        <ListItem
-          button
+      <div>
+        <Button
           style={{ textDecoration: "none", color: "black" }}
           onClick={this.toggle}
         >
-          <ListItemIcon>
-            <SecurityIcon />
-          </ListItemIcon>
-          <ListItemText primary="Update Password" />
-        </ListItem>
+          Update
+        </Button>
 
         <Modal centered={true} isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>Update Password</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Update Coin Total</ModalHeader>
           <ModalBody>
             {this.state.msg ? (
               <Alert color="danger">{this.state.msg}</Alert>
             ) : null}
             <Form onSubmit={this.onSubmit}>
               <FormGroup>
-                <Label for="password">Password</Label>
+                <Label for="coin_total">Coin Total</Label>
                 <Input
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="Password"
+                  type="text"
+                  name="coin_total"
+                  id="coin_total"
+                  placeholder="Coin Total"
                   className="mb-3"
                   onChange={this.onChange}
                 />
@@ -136,7 +131,6 @@ const mapStateToProps = state => ({
   error: state.error
 });
 
-export default connect(
-  mapStateToProps,
-  { login, clearErrors }
-)(UpdateModal);
+export default connect(mapStateToProps, { updateCoinTotal, clearErrors })(
+  UpdateModal
+);

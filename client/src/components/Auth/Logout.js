@@ -9,6 +9,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ReactTooltip from "react-tooltip";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Link } from "react-router-dom";
+import SnackbarLogout from "../Auth/SnackbarLogout";
 
 export class Logout extends Component {
   static propTypes = {

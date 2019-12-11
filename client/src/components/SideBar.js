@@ -168,7 +168,7 @@ function SideBar(props) {
 
             {isAuthenticated ? `Welcome ${user.first_name}` : ""}
             <IconButton color="inherit">
-              <Badge badgeContent={0} color="white">
+              <Badge badgeContent={0} color="default">
                 {isAuthenticated ? (
                   <Avatar>
                     {user.first_name[0].toUpperCase()}

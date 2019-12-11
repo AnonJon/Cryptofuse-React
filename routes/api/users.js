@@ -11,13 +11,47 @@ const User = require("../../models/User");
 // @desc    Register new user
 // @access  Public
 
-router.post("/test", (req, res) => {
-  res.send("register");
+//Gets all of the users
+router.get("/getAll", async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+//Delete user
+router.delete("/deleteUser/:userId", async (req, res) => {
+  try {
+    const deleteUser = await User.remove({ _id: req.params.userId });
+    res.json(deleteUser);
+  } catch (err) {
+    res.json({ message: err });
+  }
 });
 //update user email
-router.patch("/", (req, res) => {
-  const { first_name, last_name, email } = req.body;
-  res.send("updated");
+router.patch("/updateEmail/:userId", async (req, res) => {
+  try {
+    const updateEmail = await User.updateOne(
+      { _id: req.params.userId },
+      { $set: { email: req.body.email } }
+    );
+    res.json(updateEmail);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+//update user coin_total
+router.patch("/updateCoinTotal/:userId", async (req, res) => {
+  try {
+    const updateCoinTotal = await User.updateOne(
+      { _id: req.params.userId },
+      { $set: { coin_total: req.body.coin_total } }
+    );
+    res.json(updateCoinTotal);
+  } catch (err) {
+    res.json({ message: err });
+  }
 });
 
 router.post("/", (req, res) => {

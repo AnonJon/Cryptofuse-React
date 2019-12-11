@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 
 function getModalStyle() {
   const top = 50;
@@ -17,11 +19,18 @@ function getModalStyle() {
 const useStyles = makeStyles(theme => ({
   paper: {
     position: "absolute",
+    textAlign: "center",
     width: 400,
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3)
+  },
+  closeButton: {
+    position: "absolute",
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500]
   }
 }));
 
@@ -51,10 +60,20 @@ export default function ReceiveModal() {
         onClose={handleClose}
       >
         <div style={modalStyle} className={classes.paper}>
-          <h2 id="simple-modal-title">Text in a modal</h2>
-          <p id="simple-modal-description">
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </p>
+          <IconButton
+            aria-label="close"
+            className={classes.closeButton}
+            onClick={handleClose}
+          >
+            <CloseIcon />
+          </IconButton>
+          <img
+            className="#"
+            src={require("../../../images/images/btc-80x80.png")}
+            alt=""
+          />
+          <h3>Your bitcoin Address</h3>
+          <p>eg5g54g54grdrg5egeg5</p>
         </div>
       </Modal>
     </div>

@@ -1,9 +1,10 @@
 import React, { Fragment } from "react";
-import Link from "@material-ui/core/Link";
+
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Title from "../Title";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   depositContext: {
@@ -28,7 +29,9 @@ const Deposits = props => {
         {new Date().toDateString()}
       </Typography>
       <div>
-        <Link color="primary">View balance</Link>
+        <Link to="/dashboard/wallet" color="primary">
+          BTC Wallet Ballance
+        </Link>
       </div>
     </Fragment>
   );

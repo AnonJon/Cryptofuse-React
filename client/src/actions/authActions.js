@@ -9,9 +9,7 @@ import {
   LOGIN_FAIL,
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
-  REGISTER_FAIL,
-  UPDATE_SUCCESS,
-  UPDATE_FAIL
+  REGISTER_FAIL
 } from "./types";
 
 // Check token & load user
@@ -96,35 +94,6 @@ export const login = ({ email, password }) => dispatch => {
       );
       dispatch({
         type: LOGIN_FAIL
-      });
-    });
-};
-
-//Update User Password
-export const update = ({ password }) => dispatch => {
-  // Headers
-  const config = {
-    headers: {
-      "Content-Type": "application/json"
-    }
-  };
-  // Request body
-  const body = JSON.stringify({ password });
-
-  axios
-    .post("/api/auth", body, config)
-    .then(res =>
-      dispatch({
-        type: UPDATE_SUCCESS,
-        payload: res.data
-      })
-    )
-    .catch(err => {
-      dispatch(
-        returnErrors(err.response.data, err.response.status, "UPDATE_FAIL")
-      );
-      dispatch({
-        type: UPDATE_FAIL
       });
     });
 };

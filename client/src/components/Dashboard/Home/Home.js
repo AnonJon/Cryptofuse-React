@@ -10,7 +10,6 @@ import Chart3 from "../Chart3";
 import Completion from "./completion";
 import { connect } from "react-redux";
 
-import { Redirect } from "react-router-dom";
 import LoginPage from "../../Auth/LoginPage";
 import SnackbarError from "../../Auth/SnackbarError";
 const useStyles = makeStyles(theme => ({
@@ -29,7 +28,6 @@ const useStyles = makeStyles(theme => ({
   },
 
   container: {
-    // marginTop: "150px",
     paddingTop: theme.spacing(15),
     paddingBottom: theme.spacing(4)
   },

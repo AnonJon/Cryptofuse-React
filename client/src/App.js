@@ -5,7 +5,7 @@ import store from "./store";
 import { loadUser } from "./actions/authActions";
 
 import SideBar from "./components/SideBar";
-import NavBar from "./components/NavBar";
+
 import Homepage from "./components/StaticPages/Homepage";
 import Footer from "./components/StaticPages/Footer";
 import Learnmore from "./components/StaticPages/LearnMore";
@@ -15,7 +15,7 @@ import Home from "./components/Dashboard/Home/Home";
 import AdminHome from "./components/AdminDashboard/AdminHome";
 import LoginPage from "./components/Auth/LoginPage";
 import Wallet from "./components/Dashboard/Wallet/Wallet";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./App.css";
 import RegisterPage from "./components/Auth/RegisterPage";
