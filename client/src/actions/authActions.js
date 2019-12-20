@@ -40,31 +40,63 @@ export const register = ({
   email,
   password
 }) => dispatch => {
-  // Headers
-  const config = {
-    headers: {
-      "Content-Type": "application/json"
-    }
-  };
-
-  // Request body
-  const body = JSON.stringify({ first_name, last_name, email, password });
-
+  //Create a bitcoin address
   axios
-    .post("/api/users", body, config)
-    .then(res =>
-      dispatch({
-        type: REGISTER_SUCCESS,
-        payload: res.data
-      })
+    .get(
+      `http://localhost:3001/merchant/${process.env.REACT_APP_WALLET_GUID}/accounts/create?${process.env.REACT_APP_WALLET_PASS}&label=${first_name}${last_name}`
     )
-    .catch(err => {
-      dispatch(
-        returnErrors(err.response.data, err.response.status, "REGISTER_FAIL")
-      );
-      dispatch({
-        type: REGISTER_FAIL
-      });
+    .then(res => {
+      console.log("response 1", res);
+      //Get the last account that was created
+      axios
+        .get(
+          `http://localhost:3001/merchant/${process.env.REACT_APP_WALLET_GUID}/accounts/?${process.env.REACT_APP_WALLET_PASS}`
+        )
+        .then(res => {
+          console.log("response 2", res.data[res.data.length - 1]);
+          const { receiveAddress, extendedPublicKey } = res.data[
+            res.data.length - 1
+          ];
+
+          // Headers
+          const config = {
+            headers: {
+              "Content-Type": "application/json"
+            }
+          };
+
+          // Request body
+          const body = JSON.stringify({
+            first_name,
+            last_name,
+            email,
+            password,
+            receiveAddress,
+            extendedPublicKey
+          });
+
+          axios
+            .post("/api/users", body, config)
+
+            .then(res =>
+              dispatch({
+                type: REGISTER_SUCCESS,
+                payload: res.data
+              })
+            )
+            .catch(err => {
+              dispatch(
+                returnErrors(
+                  err.response.data,
+                  err.response.status,
+                  "REGISTER_FAIL"
+                )
+              );
+              dispatch({
+                type: REGISTER_FAIL
+              });
+            });
+        });
     });
 };
 

@@ -32,22 +32,12 @@ export const updateCoinTotal = (id, coin_total) => dispatch => {
     }
   };
   // Request body
-  const body = JSON.stringify(coin_total);
+  const body = JSON.stringify({ coin_total });
 
-  axios
-    .patch(`/api/users/updateCoinTotal/${id}`, body, config)
-    .then(res =>
-      dispatch({
-        type: "UPDATE_COIN_TOTAL",
-        value: id
-      })
-    )
-    .catch(err => {
-      dispatch(
-        returnErrors(err.response.data, err.response.status, "UPDATE_FAIL")
-      );
-      dispatch({
-        type: "UPDATE_FAIL"
-      });
-    });
+  axios.patch(`/api/users/updateCoinTotal/${id}`, body, config).then(res =>
+    dispatch({
+      type: "UPDATE_COIN_TOTAL",
+      value: { id: id, coins: coin_total }
+    })
+  );
 };

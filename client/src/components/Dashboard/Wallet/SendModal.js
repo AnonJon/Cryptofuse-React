@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
-import Button from "@material-ui/core/Button";
+import Button from "../UserProfile/CustomButtons/Button";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import { TextField, Container } from "@material-ui/core";
@@ -107,7 +107,7 @@ export default function SendModal() {
 
   return (
     <div>
-      <Button varient="outlined" type="button" onClick={handleOpen}>
+      <Button color="primary" type="button" onClick={handleOpen}>
         Send
       </Button>
       <Modal open={open} onClose={handleClose}>
@@ -140,10 +140,7 @@ export default function SendModal() {
                 margin="normal"
                 required
               />
-              <Button
-                style={{ backgroundColor: "rgb(178,67, 87)", color: "white" }}
-                type="submit"
-              >
+              <Button color="primary" type="submit">
                 Send
               </Button>
             </form>

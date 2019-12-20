@@ -19,6 +19,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./App.css";
 import RegisterPage from "./components/Auth/RegisterPage";
+import Invest from "./components/Dashboard/Invest/Invest";
+import UserProfile from "./components/Dashboard/UserProfile/UserProfile";
 
 class App extends Component {
   componentDidMount() {
@@ -30,15 +32,17 @@ class App extends Component {
         <Router>
           <SideBar />
           <Switch>
-            <Route exact path="/dashboard" component={Home} />
-            <Route path="/dashboard/graph-data" component={GraphData} />
             <Route exact path="/" component={Homepage} />
             <Route path="/learn-more" component={Learnmore} />
             <Route path="/portfolio" component={Portfolio} />
             <Route exact path="/admin" component={AdminHome} />
             <Route path="/login" component={LoginPage} />
             <Route path="/register" component={RegisterPage} />
+            <Route exact path="/dashboard" component={Home} />
+            <Route path="/dashboard/graph-data" component={GraphData} />
             <Route path="/dashboard/wallet" component={Wallet} />
+            <Route path="/dashboard/invest" component={Invest} />
+            <Route path="/dashboard/profile" component={UserProfile} />
           </Switch>
           <Footer />
         </Router>

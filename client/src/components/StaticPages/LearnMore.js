@@ -1,9 +1,17 @@
 import React from "react";
 import "../../App.css";
+import mp4 from "../../images/CryptoFuse.mp4";
 
 const Learnmore = () => {
   return (
-    <div className="container">
+    <div className="learn-more">
+      <div className="video-div">
+        <video id="background-video" loop autoPlay muted>
+          <source src={mp4} type="video/mp4" />
+          <source src={mp4} type="video/ogg" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
       <div className="ourCompany">
         <h1>Our Company</h1>
         <p>

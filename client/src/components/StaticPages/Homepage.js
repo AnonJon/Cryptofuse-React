@@ -18,7 +18,7 @@ const Homepage = () => {
           params={{
             particles: {
               number: {
-                value: 50
+                value: 80
               },
               size: {
                 value: 3
@@ -35,14 +35,23 @@ const Homepage = () => {
           }}
         />
 
-        <div className="title-div" data-aos="fade-left">
-          <h1>Complex Storage Made Easy</h1>
+        <div className="title-div" data-aos="fade" data-aos-duration="1500">
+          <img
+            alt=""
+            style={{ height: "90px", width: "450px" }}
+            src={require("../../images/images/logo-1white.png")}
+          />
+          <h4>Diversified Storage Made Easy</h4>
 
           <Link style={{ textDecoration: "none" }} to="/learn-more">
-            <Button variant="outlined">Learn More</Button>
+            <Button variant="outlined" style={{ color: "white" }}>
+              Learn More
+            </Button>
           </Link>
           <Link style={{ textDecoration: "none" }} to="register">
-            <Button variant="outlined">Sign Up</Button>
+            <Button variant="outlined" style={{ color: "white" }}>
+              Sign Up
+            </Button>
           </Link>
         </div>
       </div>
@@ -65,15 +74,15 @@ const Homepage = () => {
       </div>
 
       <div className="home-stats">
-        <div id="home-stat-1" data-aos="fade" data-aos-offset="200">
+        <div id="home-stat-1" data-aos="fade">
           <h1>53%</h1>
           <p>Cryptofuse performance gain even in a down market. *</p>
         </div>
-        <div id="home-stat-2" data-aos="fade" data-aos-offset="300">
+        <div id="home-stat-2" data-aos="fade">
           <h1>1.3M+</h1>
           <p>In our diversified portfolio</p>
         </div>
-        <div id="home-stat-3" data-aos="fade" data-aos-offset="400">
+        <div id="home-stat-3" data-aos="fade">
           <h1>5K+</h1>
           <p>Our users are growing by the day.</p>
         </div>

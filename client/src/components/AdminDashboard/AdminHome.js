@@ -11,8 +11,8 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import DialogDelete from "./DialogDelete";
 import {
-  Container,
   Table,
+  Container,
   TableBody,
   TableCell,
   TableHead,
@@ -25,9 +25,43 @@ import {
   updateCoinTotal
 } from "../../actions/userActions";
 
+import GridItem from "../Dashboard/UserProfile/Grid/GridItem";
+import GridContainer from "../Dashboard/UserProfile/Grid/GridContainer.js";
+// import Table from "./Table";
+import Card from "../Dashboard/UserProfile/Card/Card";
+import CardHeader from "../Dashboard/UserProfile/Card/CardHeader";
+import CardBody from "../Dashboard/UserProfile/Card/CardBody";
+
 const useStyles = makeStyles(theme => ({
   close: {
     padding: theme.spacing(0.5)
+  },
+  cardCategoryWhite: {
+    "&,& a,& a:hover,& a:focus": {
+      color: "rgba(255,255,255,.62)",
+      margin: "0",
+      fontSize: "14px",
+      marginTop: "0",
+      marginBottom: "0"
+    },
+    "& a,& a:hover,& a:focus": {
+      color: "#FFFFFF"
+    }
+  },
+  cardTitleWhite: {
+    color: "#FFFFFF",
+    marginTop: "0px",
+    minHeight: "auto",
+    fontWeight: "300",
+    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    marginBottom: "3px",
+    textDecoration: "none",
+    "& small": {
+      color: "#777",
+      fontSize: "65%",
+      fontWeight: "400",
+      lineHeight: "1"
+    }
   }
 }));
 
@@ -52,43 +86,67 @@ const AdminHome = ({ users, auth, getUsers, deleteUser, updateCoinTotal }) => {
 
   return (
     <div style={{ marginTop: "100px" }}>
-      <Container maxWidth="lg" className="car-container">
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell style={{ fontWeight: "bolder" }}>ID</TableCell>
-              <TableCell style={{ fontWeight: "bolder" }}>First Name</TableCell>
-              <TableCell style={{ fontWeight: "bolder" }}>Last Name</TableCell>
-              <TableCell style={{ fontWeight: "bolder" }}>Email</TableCell>
-              <TableCell style={{ fontWeight: "bolder" }}>Coin Total</TableCell>
-              <TableCell style={{ fontWeight: "bolder" }}>Delete</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {users.map(user => (
-              <TableRow key={user._id}>
-                <TableCell component="th" scope="row">
-                  {user._id}
-                </TableCell>
-                <TableCell>{user.first_name}</TableCell>
-                <TableCell>{user.last_name}</TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>
-                  {user.coin_total}
-                  <UpdateCoin update={updateCoinTotal} id={user._id} />
-                </TableCell>
-                <TableCell>
-                  <DialogDelete
-                    delete={deleteUser}
-                    id={user._id}
-                    coinTotal={user.coin_total}
-                  />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Container>
+      <GridContainer>
+        <GridItem xs={12} sm={12} md={12}>
+          <Card>
+            <CardHeader color="primary">
+              <h4 className={classes.cardTitleWhite}>All Users</h4>
+              <p className={classes.cardCategoryWhite}>Manage Users</p>
+            </CardHeader>
+            <CardBody>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell style={{ fontWeight: "bolder" }}>ID</TableCell>
+                    <TableCell style={{ fontWeight: "bolder" }}>
+                      First Name
+                    </TableCell>
+                    <TableCell style={{ fontWeight: "bolder" }}>
+                      Last Name
+                    </TableCell>
+                    <TableCell style={{ fontWeight: "bolder" }}>
+                      Email
+                    </TableCell>
+                    <TableCell style={{ fontWeight: "bolder" }}>
+                      Coin Total
+                    </TableCell>
+                    <TableCell style={{ fontWeight: "bolder" }}>
+                      Delete
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {users.map(user => (
+                    <TableRow key={user._id}>
+                      <TableCell component="th" scope="row">
+                        {user._id}
+                      </TableCell>
+                      <TableCell>{user.first_name}</TableCell>
+                      <TableCell>{user.last_name}</TableCell>
+                      <TableCell>{user.email}</TableCell>
+                      <TableCell>
+                        {user.coin_total}
+                        <UpdateCoin
+                          update={updateCoinTotal}
+                          getUsers={getUsers}
+                          id={user._id}
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <DialogDelete
+                          delete={deleteUser}
+                          id={user._id}
+                          coinTotal={user.coin_total}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardBody>
+          </Card>
+        </GridItem>
+      </GridContainer>
     </div>
   );
 };

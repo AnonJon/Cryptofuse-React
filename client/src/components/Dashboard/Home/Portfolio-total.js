@@ -29,7 +29,11 @@ const Deposits = props => {
         {new Date().toDateString()}
       </Typography>
       <div>
-        <Link to="/dashboard/wallet" color="primary">
+        <Link
+          to="/dashboard/wallet"
+          color="primary"
+          style={{ textDecoration: "none", color: "black" }}
+        >
           BTC Wallet Ballance
         </Link>
       </div>

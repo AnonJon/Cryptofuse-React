@@ -8,7 +8,7 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\" \"blockchain-wallet-service start --port 3001\""
   },
   "author": "Jon Gregis",
   "license": "MIT",
@@ -18,7 +18,9 @@
     "blockchain.info": "^2.12.1",
     "concurrently": "^4.1.1",
     "config": "^3.2.3",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
+    "http-proxy-middleware": "^0.20.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.7",
     "nodemon": "^1.19.1",

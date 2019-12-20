@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import { Button, TextField } from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import { TextField } from "@material-ui/core";
+import Button from "../Dashboard/UserProfile/CustomButtons/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-export default function AlertDialog(props) {
+export default function UpdateCoin(props) {
   const [open, setOpen] = useState(false);
   const [coin, setCoin] = useState("");
 
@@ -16,11 +17,12 @@ export default function AlertDialog(props) {
   const handleTextChange = e => {
     setCoin(e.target.value);
   };
-  console.log(coin);
-  const handleSubmit = () => {
-    setOpen(false);
 
+  const handleSubmit = e => {
+    e.preventDefault();
     props.update(props.id, coin);
+
+    setOpen(false);
   };
   const handleClose = () => {
     setOpen(false);
@@ -28,7 +30,7 @@ export default function AlertDialog(props) {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button color="primary" onClick={handleClickOpen}>
         Update
       </Button>
       <Dialog
@@ -56,7 +58,7 @@ export default function AlertDialog(props) {
             />
 
             <br />
-            <Button variant="contained" color="primary" type="submit">
+            <Button color="primary" type="submit">
               Submit
             </Button>
           </form>

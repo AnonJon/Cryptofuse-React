@@ -13,6 +13,10 @@ import InsertChartIcon from "@material-ui/icons/InsertChart";
 import SchoolIcon from "@material-ui/icons/School";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import SecurityIcon from "@material-ui/icons/Security";
+import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
+import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
+import EditIcon from "@material-ui/icons/Edit";
+import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 
 import { Link } from "react-router-dom";
 
@@ -40,21 +44,26 @@ const MainListItems = props => {
           <ListItemText primary="Dashboard" />
         </ListItem>
       </Link>
-
-      <ListItem button>
-        <ListItemIcon>
-          <ShoppingCartIcon />
-        </ListItemIcon>
-        <ListItemText primary="Invest" />
-      </ListItem>
       <Link
-        to="#"
+        to="/dashboard/invest"
+        data-tip="Invest"
+        style={{ textDecoration: "none", color: "black" }}
+      >
+        <ListItem button>
+          <ListItemIcon>
+            <AccountBalanceIcon />
+          </ListItemIcon>
+          <ListItemText primary="Invest" />
+        </ListItem>
+      </Link>
+      <Link
+        to="/dashboard/profile"
         data-tip="Edit Profile"
         style={{ textDecoration: "none", color: "black" }}
       >
         <ListItem button>
           <ListItemIcon>
-            <PeopleIcon />
+            <EditIcon />
           </ListItemIcon>
           <ListItemText primary="Edit Profile" />
         </ListItem>
@@ -79,7 +88,7 @@ const MainListItems = props => {
         >
           <ListItem button>
             <ListItemIcon>
-              <InsertChartIcon />
+              <SupervisorAccountIcon />
             </ListItemIcon>
             <ListItemText primary="Admin Dashboard" />
           </ListItem>
@@ -92,7 +101,7 @@ const MainListItems = props => {
       >
         <ListItem button>
           <ListItemIcon>
-            <LayersIcon />
+            <AccountBalanceWalletIcon />
           </ListItemIcon>
           <ListItemText primary="Wallet" />
         </ListItem>

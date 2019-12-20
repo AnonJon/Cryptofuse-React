@@ -41,7 +41,13 @@ router.post("/", (req, res) => {
               first_name: user.first_name,
               last_name: user.last_name,
               email: user.email,
-              coin_total: user.coin_total
+              coin_total: user.coin_total,
+              receiveAddress: user.receiveAddress,
+              extendedPublicKey: user.extendedPublicKey,
+              bitcoin_amount: user.bitcoin_amount,
+              city: user.address.city,
+              country: user.address.country,
+              about: user.about
             }
           });
         }

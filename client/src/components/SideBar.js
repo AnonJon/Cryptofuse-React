@@ -20,14 +20,18 @@ import Toolbar from "@material-ui/core/Toolbar";
 import MainListItems from "../components/Dashboard/listItems";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Slide from "@material-ui/core/Slide";
-
+import SideBarHeader from "./SideBarHeader";
 import Avatar from "@material-ui/core/Avatar";
+import ReactTooltip from "react-tooltip";
+import DashboardIcon from "@material-ui/icons/Dashboard";
+import ContactMailIcon from "@material-ui/icons/ContactMail";
 
 import IconButton from "@material-ui/core/IconButton";
 
 const useStyles = makeStyles(theme => ({
   list: {
-    width: 250
+    width: 250,
+    backgroundColor: "#F0F0F0"
   },
   fullList: {
     width: "auto"
@@ -70,7 +74,6 @@ function SideBar(props) {
     bottom: false,
     right: false
   });
-  const [wallet, setWallet] = useState(0.0);
 
   const { isAuthenticated, user } = props.auth;
 
@@ -85,6 +88,36 @@ function SideBar(props) {
     setState({ ...state, [side]: open });
   };
 
+  const bottomSideBar = (
+    <div className={classes.list}>
+      <ReactTooltip />
+      <Link
+        data-tip="Home"
+        to="/"
+        style={{ textDecoration: "none", color: "black" }}
+      >
+        <ListItem button>
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Home" />
+        </ListItem>
+      </Link>
+      <Link
+        data-tip="Contact"
+        to="/contact"
+        style={{ textDecoration: "none", color: "black" }}
+      >
+        <ListItem button>
+          <ListItemIcon>
+            <ContactMailIcon />
+          </ListItemIcon>
+          <ListItemText primary="Contact" />
+        </ListItem>
+      </Link>
+    </div>
+  );
+
   const sideList = side => (
     <div
       className={classes.list}
@@ -92,11 +125,12 @@ function SideBar(props) {
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
     >
-      <List>
-        <MainListItems />
-      </List>
+      <SideBarHeader />
+
       <Divider />
-      <List></List>
+      <MainListItems />
+      <Divider />
+      {bottomSideBar}
     </div>
   );
 
@@ -151,20 +185,15 @@ function SideBar(props) {
               noWrap
               className={classes.title}
             >
-              {isAuthenticated ? (
-                "Cryptofuse Dashboard"
-              ) : (
-                <Link to="/">
-                  <img
-                    alt=""
-                    className="logo"
-                    src={require("../images/images/logo-1white.png")}
-                  />
-                </Link>
-              )}
+              <Link to="/">
+                <img
+                  style={{ paddingLeft: "20px" }}
+                  alt=""
+                  className="logo"
+                  src={require("../images/images/logo-1white.png")}
+                />
+              </Link>
             </Typography>
-
-            {isAuthenticated ? `BTC Total: ${wallet}` : ""}
 
             {isAuthenticated ? `Welcome ${user.first_name}` : ""}
             <IconButton color="inherit">

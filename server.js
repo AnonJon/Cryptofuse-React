@@ -3,12 +3,14 @@ const mongoose = require("mongoose");
 const path = require("path");
 const config = require("config");
 const app = express();
-
+const cors = require("cors");
 // Bodyparser Middleware
 app.use(express.json());
-
+app.use(cors());
 // DB Config
 const db = config.get("mongoURI");
+
+app.use(express.urlencoded({ extended: true }));
 
 // Connect to Mongo
 mongoose
@@ -36,5 +38,8 @@ if (process.env.NODE_ENV === "production") {
 }
 
 const PORT = process.env.PORT || 5000;
+// app.listen(3000, function() {
+//   console.log("CORS-enabled web server listening on port 3001");
+// });
 
 app.listen(PORT, () => `Server running on port ${PORT}`);

@@ -35,10 +35,9 @@ li {
 }
 .logo {
   height: 50px;
-  width: 244px;
+  width: 254px;
 }
 
-/* -----------------------------------------------------------home----------------------------------- */
 .title {
   position: relative;
   height: 1200px;
@@ -46,7 +45,7 @@ li {
   background: linear-gradient(
     360deg,
     rgb(250, 250, 250) 0%,
-    rgb(88, 3, 17) 100%
+    rgb(0, 212, 250) 100%
   );
 }
 .title-div {
@@ -63,6 +62,7 @@ li {
     rgb(245, 245, 245) 0%,
     rgb(250, 250, 250) 100%
   );
+  padding-bottom: 100px;
 }
 .company-logo-1 {
   height: 150px;
@@ -169,13 +169,24 @@ li {
 }
 
 /* ---------------------------------------------------learn-more--------------------------- */
+
+.learn-more {
+  padding-top: 50px;
+}
+.ourCompany {
+  text-align: center;
+}
 .whatWeDo {
   display: flex;
   flex-direction: row;
 }
+
 #agenda-analysis {
   width: 600px;
   height: 561px;
+}
+#background-video {
+  width: 100%;
 }
 /* ----------------------------------------login----------------------- */
 

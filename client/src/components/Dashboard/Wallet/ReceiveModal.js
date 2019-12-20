@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
-import Button from "@material-ui/core/Button";
+import Button from "../UserProfile/CustomButtons/Button";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
-
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 function getModalStyle() {
   const top = 50;
   const left = 50;
@@ -34,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function ReceiveModal() {
+const ReceiveModal = props => {
   const classes = useStyles();
 
   const [modalStyle] = useState(getModalStyle);
@@ -47,18 +48,13 @@ export default function ReceiveModal() {
   const handleClose = () => {
     setOpen(false);
   };
-
+  const { isAuthenticated, user } = props.auth;
   return (
     <div>
-      <Button varient="outlined" type="button" onClick={handleOpen}>
+      <Button color="primary" type="button" onClick={handleOpen}>
         Receive
       </Button>
-      <Modal
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-        open={open}
-        onClose={handleClose}
-      >
+      <Modal open={open} onClose={handleClose}>
         <div style={modalStyle} className={classes.paper}>
           <IconButton
             aria-label="close"
@@ -73,9 +69,16 @@ export default function ReceiveModal() {
             alt=""
           />
           <h3>Your bitcoin Address</h3>
-          <p>eg5g54g54grdrg5egeg5</p>
+          <p>{isAuthenticated ? user.receiveAddress : null}</p>
         </div>
       </Modal>
     </div>
   );
-}
+};
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  };
+};
+
+export default withRouter(connect(mapStateToProps, null)(ReceiveModal));

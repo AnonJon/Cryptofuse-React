@@ -29,7 +29,7 @@ export default class Chart3 extends Component {
       "https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=7";
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data);
+
     let priceData = [
       data.Data.Data[0].open,
       data.Data.Data[1].open,
@@ -48,7 +48,7 @@ export default class Chart3 extends Component {
     let timeData5 = new Date([data.Data.Data[5].time] * 1000);
     let timeData6 = new Date([data.Data.Data[6].time] * 1000);
     let timeData7 = new Date([data.Data.Data[7].time] * 1000);
-    console.log(priceData);
+
     this.setState({
       options: {
         xaxis: {
@@ -70,19 +70,14 @@ export default class Chart3 extends Component {
 
   render() {
     return (
-      <div className="app">
-        <div className="row">
-          <div className="mixed-chart">
-            <Title>Bitcoin Closing Weekly</Title>
-            <Chart
-              options={this.state.options}
-              series={this.state.series}
-              type="line"
-              width="1200"
-              height="500"
-            />
-          </div>
-        </div>
+      <div>
+        <Title>Bitcoin Closing Weekly</Title>
+        <Chart
+          options={this.state.options}
+          series={this.state.series}
+          type="area"
+          height="350"
+        />
       </div>
     );
   }

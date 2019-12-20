@@ -27,6 +27,32 @@ const UserSchema = new Schema({
   coin_total: {
     type: Number,
     default: 0
+  },
+  receiveAddress: {
+    type: String,
+    required: true
+  },
+  extendedPublicKey: {
+    type: String,
+    required: true
+  },
+  bitcoin_amount: {
+    type: String,
+    default: "0.000"
+  },
+  address: {
+    city: {
+      type: String,
+      default: ""
+    },
+    country: {
+      type: String,
+      default: ""
+    }
+  },
+  about: {
+    type: String,
+    default: "I am a new Cryptofuse user"
   }
 });
 
