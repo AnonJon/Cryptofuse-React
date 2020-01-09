@@ -282,6 +282,24 @@ li {
   background: rgb(35, 39, 42);
   color: rgb(216, 211, 211);
 }
+.footer-mid h3 {
+  color: rgb(216, 211, 211);
+}
+.footer-mid p {
+  color: rgb(216, 211, 211);
+}
+.footer-mid span {
+  color: rgb(216, 211, 211);
+}
+.footer-right h3 {
+  color: rgb(216, 211, 211);
+}
+/* ==========================================================Contact============================================== */
+
+.contact-envelope {
+  height: 20px;
+  width: 20px;
+}
 /* -----------------------------------terms-conditions---------------------- */
 .terms-header {
   background-image: linear-gradient(90deg, rgb(210, 27, 70), rgb(245, 14, 4));

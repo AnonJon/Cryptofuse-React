@@ -21,6 +21,7 @@ import "./App.css";
 import RegisterPage from "./components/Auth/RegisterPage";
 import Invest from "./components/Dashboard/Invest/Invest";
 import UserProfile from "./components/Dashboard/UserProfile/UserProfile";
+import Contact from "./components/StaticPages/Contact";
 
 class App extends Component {
   componentDidMount() {
@@ -35,6 +36,7 @@ class App extends Component {
             <Route exact path="/" component={Homepage} />
             <Route path="/learn-more" component={Learnmore} />
             <Route path="/portfolio" component={Portfolio} />
+            <Route path="/contact" component={Contact} />
             <Route exact path="/admin" component={AdminHome} />
             <Route path="/login" component={LoginPage} />
             <Route path="/register" component={RegisterPage} />

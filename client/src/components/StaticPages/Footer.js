@@ -13,10 +13,11 @@ const Footer = () => {
             alt=""
           />
           <p>Diversified cryptocurrency involvement made easy and secure.</p>
-          <p>
+          <p >
             BLOCKCHAIN PARTNERS LIMITED 71-75 SHELTON ST COVENT GARDEN LONDON
             WC2H9JQ
           </p>
+          
           <h2>Payments Accepted</h2>
           <p>___</p>
         </div>
