@@ -9,10 +9,10 @@
   "main": "server.js",
   "scripts": {
     "client-install": "cd client && npm install",
-    "start": "node server.js",
+    "startt": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\" \"blockchain-wallet-service start --port 3001\""
+    "start": "concurrently \"npm run server\" \"npm run client\" \"blockchain-wallet-service start --port 3001\""
   },
   "author": "Jon Gregis",
   "license": "MIT",
