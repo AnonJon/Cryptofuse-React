@@ -5,17 +5,19 @@ const config = require("config");
 const app = express();
 const cors = require("cors");
 const PORT = process.env.PORT || 5000;
+const dotenv = require("dotenv");
 // Bodyparser Middleware
 app.use(express.json());
 app.use(cors());
 // DB Config
-const db = config.get("mongoURI");
+const db = process.env.mongoURI;
+dotenv.config();
 
 app.use(express.urlencoded({ extended: true }));
 
 // Connect to Mongo
 mongoose
-  .connect(db, {
+  .connect(process.env.mongoURI, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true
