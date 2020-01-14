@@ -5,6 +5,7 @@ const config = require("config");
 const jwt = require("jsonwebtoken");
 const auth = require("../../middleware/auth");
 const dotenv = require("dotenv");
+const Speakeasy = require("speakeasy");
 dotenv.config();
 // User Model
 const User = require("../../models/User");
@@ -46,6 +47,7 @@ router.post("/", (req, res) => {
               receiveAddress: user.receiveAddress,
               extendedPublicKey: user.extendedPublicKey,
               bitcoin_amount: user.bitcoin_amount,
+              totpSecret: user.totpSecret,
               city: user.address.city,
               country: user.address.country,
               about: user.about
@@ -64,6 +66,32 @@ router.get("/user", auth, (req, res) => {
   User.findById(req.user.id)
     .select("-password")
     .then(user => res.json(user));
+});
+
+//setting up 2fa
+
+router.post("/totp-secret", (req, res, next) => {
+  var secret = Speakeasy.generateSecret({ length: 20 });
+  res.send({ secret: secret.base32 });
+});
+router.post("/totp-generate", (req, res, next) => {
+  res.send({
+    token: Speakeasy.totp({
+      secret: req.body.secret,
+      encoding: "base32"
+    }),
+    remaining: 30 - Math.floor((new Date().getTime() / 1000.0) % 30)
+  });
+});
+router.post("/totp-validate", (req, res, next) => {
+  res.send({
+    valid: Speakeasy.totp.verify({
+      secret: req.body.secret,
+      encoding: "base32",
+      token: req.body.token,
+      window: 0
+    })
+  });
 });
 
 module.exports = router;

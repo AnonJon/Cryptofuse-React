@@ -14,6 +14,8 @@ export default (state = [], action) => {
       );
       updateIndex[0].coin_total = action.value.coins;
       return usersUpdate;
+    case "CONTACT_FORM_SUCCESS":
+      return "Message Sent";
     default:
       return state;
   }

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
-
+import { connect } from "react-redux";
+import { sendContactEmail } from "../../actions/userActions";
 import { Alert } from "reactstrap";
+import { withRouter } from "react-router";
 import PhoneIcon from "@material-ui/icons/Phone";
 import MailIcon from "@material-ui/icons/Mail";
 import RoomIcon from "@material-ui/icons/Room";
@@ -32,7 +34,8 @@ const useStyles = makeStyles(theme => ({
   contact: {
     backgroundColor: "white",
     boxShadow: "0px 1px 30px -5px rgba(184,131,131,1)",
-    borderRadius: "2%"
+    borderRadius: "2%",
+    marginBottom: "50px"
   }
 }));
 const CssTextField = withStyles({
@@ -57,13 +60,30 @@ const CssTextField = withStyles({
   }
 })(TextField);
 
-export default function Contact() {
+const Contact = ({ sendContactEmail, history }) => {
   const classes = useStyles();
   const [msg, setMsg] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
+
+  const onSubmit = e => {
+    e.preventDefault();
+
+    const contactForm = {
+      name,
+      email,
+      subject,
+      message
+    };
+
+    sendContactEmail(contactForm);
+    setMsg("Your Question has Been Sent");
+    setTimeout(() => {
+      window.location.reload(false);
+    }, 2000);
+  };
 
   const onChangeName = e => {
     setName(e.target.value);
@@ -115,8 +135,8 @@ export default function Contact() {
           <Typography component="h1" variant="h5">
             Contact
           </Typography>
-          {msg ? <Alert color="danger">{msg}</Alert> : null}
-          <form>
+          {msg ? <Alert color="success">{msg}</Alert> : null}
+          <form onSubmit={onSubmit}>
             <CssTextField
               variant="outlined"
               margin="normal"
@@ -158,6 +178,8 @@ export default function Contact() {
                   borderColor: "#ced4da"
                 }
               }}
+              multiline={true}
+              rows={4}
               variant="outlined"
               margin="normal"
               required
@@ -185,4 +207,6 @@ export default function Contact() {
       </Container>
     </div>
   );
-}
+};
+
+export default withRouter(connect(null, { sendContactEmail })(Contact));

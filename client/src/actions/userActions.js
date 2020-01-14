@@ -14,6 +14,40 @@ export const getUsers = () => {
   };
 };
 
+export const sendContactEmail = ({
+  name,
+  email,
+  subject,
+  message
+}) => dispatch => {
+  // Headers
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+
+  // Request body
+  const body = JSON.stringify({ name, email, subject, message });
+
+  axios
+    .post("/api/users/userContact", body, config)
+    .then(res =>
+      dispatch({
+        type: "CONTACT_FORM_SUCCESS",
+        payload: res.data
+      })
+    )
+    .catch(err => {
+      dispatch(
+        returnErrors(err.response.data, err.response.status, "LOGIN_FAIL")
+      );
+      dispatch({
+        type: "LOGIN_FAIL"
+      });
+    });
+};
+
 export const deleteUser = id => {
   return dispatch => {
     const requestOptions = { method: "DELETE" };

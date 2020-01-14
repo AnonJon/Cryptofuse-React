@@ -179,6 +179,19 @@ li {
 .whatWeDo {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  padding: 80px 0;
+  justify-content: space-around;
+}
+.ourValues {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
+  padding: 80px 0;
+  justify-content: space-around;
+}
+.whatWeDo-1 {
+  max-width: 400px;
 }
 
 #agenda-analysis {
@@ -187,6 +200,23 @@ li {
 }
 #background-video {
   width: 100%;
+}
+
+.core-services {
+  margin-top: 100px;
+}
+.core-services h1,
+.core-services h2 {
+  text-align: center;
+}
+.coreServices-icon {
+  text-align: center;
+  width: 400px;
+  padding: 60px;
+}
+.coreServices-icon img {
+  height: 40px;
+  width: 40px;
 }
 /* ----------------------------------------login----------------------- */
 
@@ -212,7 +242,7 @@ li {
 .portfolio-container {
   padding-top: 200px;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap-reverse;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
@@ -235,7 +265,7 @@ li {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 600px;
+  max-width: 500px;
 }
 .portfolio-right-wrapper h1 {
   text-align: center;
