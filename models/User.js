@@ -53,6 +53,18 @@ const UserSchema = new Schema({
   about: {
     type: String,
     default: "I am a new Cryptofuse user"
+  },
+  totpSecret: {
+    type: String,
+    default: ""
+  },
+  twoFactorSetup: {
+    type: Boolean,
+    default: false
+  },
+  twoFactorVerify: {
+    type: Boolean,
+    default: false
   }
 });
 

@@ -70,7 +70,7 @@ const CssTextField = withStyles({
 //   this.props.history.push("/dashboard");
 // };
 
-const RegisterPage = ({ error, register, history }) => {
+const RegisterPage = ({ error, register, history, isAuthenticated }) => {
   const [msg, setMsg] = useState(null);
   const [first_name, setFirst_name] = useState("");
   const [last_name, setLast_name] = useState("");
@@ -97,6 +97,10 @@ const RegisterPage = ({ error, register, history }) => {
     } else {
       setMsg(null);
     }
+
+    if (isAuthenticated) {
+      history.push("/dashboard");
+    }
   });
 
   const onSubmit = e => {
@@ -112,8 +116,6 @@ const RegisterPage = ({ error, register, history }) => {
     // Attempt to login
 
     register(newUser);
-
-    history.push("/dashboard");
   };
 
   return (

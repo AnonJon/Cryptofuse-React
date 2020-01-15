@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     opacity: "40%"
   },
   AppBar: {
-    backgroundColor: "rgb(178,67, 87)"
+    backgroundColor: "rgb(41,48, 49)"
   },
   title: {
     flexGrow: 1

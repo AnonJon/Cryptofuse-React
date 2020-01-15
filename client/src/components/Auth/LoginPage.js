@@ -77,11 +77,11 @@ const CssTextField = withStyles({
 //   this.props.history.push("/dashboard");
 // };
 
-const LoginPage = ({ error, login, history }) => {
+const LoginPage = ({ error, login, history, isAuthenticated, auth }) => {
   const [msg, setMsg] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const { user } = auth;
   const onChangeEmail = e => {
     setEmail(e.target.value);
   };
@@ -96,21 +96,27 @@ const LoginPage = ({ error, login, history }) => {
     } else {
       setMsg(null);
     }
-  });
 
+    if (isAuthenticated) {
+      if (user.twoFactorSetup) {
+        history.push("/two-factor");
+      } else {
+        history.push("/dashboard");
+      }
+    }
+  });
+  console.log(user);
   const onSubmit = e => {
     e.preventDefault();
 
-    const user = {
+    const loginUser = {
       email,
       password
     };
 
     // Attempt to login
 
-    login(user);
-
-    history.push("/dashboard");
+    login(loginUser);
   };
 
   return (
@@ -242,6 +248,7 @@ const LoginPage = ({ error, login, history }) => {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
+  auth: state.auth,
   error: state.error
 });
 

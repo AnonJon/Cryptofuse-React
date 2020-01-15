@@ -22,6 +22,7 @@ import RegisterPage from "./components/Auth/RegisterPage";
 import Invest from "./components/Dashboard/Invest/Invest";
 import UserProfile from "./components/Dashboard/UserProfile/UserProfile";
 import Contact from "./components/StaticPages/Contact";
+import TwoFactorLogin from "./components/Auth/TwoFactorLogin";
 
 class App extends Component {
   componentDidMount() {
@@ -39,6 +40,7 @@ class App extends Component {
             <Route path="/contact" component={Contact} />
             <Route exact path="/admin" component={AdminHome} />
             <Route path="/login" component={LoginPage} />
+            <Route path="/two-factor" component={TwoFactorLogin} />
             <Route path="/register" component={RegisterPage} />
             <Route exact path="/dashboard" component={Home} />
             <Route path="/dashboard/graph-data" component={GraphData} />

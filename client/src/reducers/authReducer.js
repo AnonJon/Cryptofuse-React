@@ -46,6 +46,15 @@ export default function(state = initialState, action) {
         isLoading: false,
         isLoaded: true
       };
+    case "TWO_FACTOR_LOGIN_SUCCESS":
+      return {
+        ...state,
+        ...action.payload,
+        isAuthenticated: true,
+        isLoading: false,
+        isLoaded: true,
+        isTwoFactorVerified: true
+      };
     case AUTH_ERROR:
     case LOGIN_FAIL:
     case LOGOUT_SUCCESS:

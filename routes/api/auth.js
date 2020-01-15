@@ -50,7 +50,10 @@ router.post("/", (req, res) => {
               totpSecret: user.totpSecret,
               city: user.address.city,
               country: user.address.country,
-              about: user.about
+              about: user.about,
+              twoFactorSetup: user.twoFactorSetup,
+              twoFactorVarify: user.twoFactorVarify,
+              test: user.test
             }
           });
         }

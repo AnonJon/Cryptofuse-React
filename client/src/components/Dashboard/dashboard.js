@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -144,79 +144,84 @@ const Dashboard = props => {
   };
 
   return (
-    <Router>
-      <div className={classes.root}>
-        <CssBaseline />
-        <AppBar
-          position="fixed"
-          className={clsx(classes.appBar, open && classes.appBarShift)}
-        >
-          <Toolbar className={classes.toolbar}>
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              className={clsx(
-                classes.menuButton,
-                open && classes.menuButtonHidden
-              )}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              className={classes.title}
-            >
-              {isAuthenticated ? (
-                "Cryptofuse Dashboard"
-              ) : (
-                <Link to="/">
-                  <img
-                    alt=""
-                    className="logo"
-                    src={require("../../images/images/logo-1white.png")}
-                  />
-                </Link>
-              )}
-            </Typography>
-            {isAuthenticated ? `Welcome ${user.first_name}` : ""}
-            <IconButton color="inherit">
-              <Badge badgeContent={0} color="secondary">
-                {isAuthenticated ? <NotificationsIcon /> : ""}
-              </Badge>
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-        <Drawer
-          variant="permanent"
-          classes={{
-            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose)
-          }}
-          open={open}
-        >
-          <div className={classes.toolbarIcon}>
-            <IconButton onClick={handleDrawerClose}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </div>
-          <Divider />
-          <List>
-            <MainListItems />
-          </List>
-          <Divider />
-        </Drawer>
+    <Suspense fallback={<h1>loading...</h1>}>
+      <Router>
+        <div className={classes.root}>
+          <CssBaseline />
+          <AppBar
+            position="fixed"
+            className={clsx(classes.appBar, open && classes.appBarShift)}
+          >
+            <Toolbar className={classes.toolbar}>
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleDrawerOpen}
+                className={clsx(
+                  classes.menuButton,
+                  open && classes.menuButtonHidden
+                )}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography
+                component="h1"
+                variant="h6"
+                color="inherit"
+                noWrap
+                className={classes.title}
+              >
+                {isAuthenticated ? (
+                  "Cryptofuse Dashboard"
+                ) : (
+                  <Link to="/">
+                    <img
+                      alt=""
+                      className="logo"
+                      src={require("../../images/images/logo-1white.png")}
+                    />
+                  </Link>
+                )}
+              </Typography>
+              {isAuthenticated ? `Welcome ${user.first_name}` : ""}
+              <IconButton color="inherit">
+                <Badge badgeContent={0} color="secondary">
+                  {isAuthenticated ? <NotificationsIcon /> : ""}
+                </Badge>
+              </IconButton>
+            </Toolbar>
+          </AppBar>
+          <Drawer
+            variant="permanent"
+            classes={{
+              paper: clsx(
+                classes.drawerPaper,
+                !open && classes.drawerPaperClose
+              )
+            }}
+            open={open}
+          >
+            <div className={classes.toolbarIcon}>
+              <IconButton onClick={handleDrawerClose}>
+                <ChevronLeftIcon />
+              </IconButton>
+            </div>
+            <Divider />
+            <List>
+              <MainListItems />
+            </List>
+            <Divider />
+          </Drawer>
 
-        <main style={{ width: "100%", display: "flex", flexWrap: "wrap" }}>
-          <div className={classes.appBarSpacer} />
+          <main style={{ width: "100%", display: "flex", flexWrap: "wrap" }}>
+            <div className={classes.appBarSpacer} />
 
-          <Copyright />
-        </main>
-      </div>
-    </Router>
+            <Copyright />
+          </main>
+        </div>
+      </Router>
+    </Suspense>
   );
 };
 

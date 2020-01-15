@@ -101,6 +101,18 @@ router.patch("/updateCoinTotal/:userId", async (req, res) => {
     res.json({ message: err });
   }
 });
+//update two-factor sign in
+router.patch("/updateTwoFactorSignin/:userId", async (req, res) => {
+  try {
+    const updateTwoFactor = await User.updateOne(
+      { _id: req.params.userId },
+      { $set: { twoFactorSetup: req.body.twoFactorSetup } }
+    );
+    res.json(updateTwoFactor);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
 
 router.post("/", (req, res) => {
   const {
@@ -156,7 +168,10 @@ router.post("/", (req, res) => {
                   totpSecret: user.totpSecret,
                   city: user.address.city,
                   country: user.address.country,
-                  about: user.about
+                  about: user.about,
+                  twoFactorSetup: user.twoFactorSetup,
+                  twoFactorVarify: user.twoFactorVarify,
+                  test: user.test
                 }
               });
             }

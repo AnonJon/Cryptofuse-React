@@ -70,7 +70,6 @@ const AdminHome = ({ users, auth, getUsers, deleteUser, updateCoinTotal }) => {
   const { user, isLoading, isLoaded } = auth;
   const [open, setOpen] = useState(true);
 
-  console.log(users);
   useEffect(() => {
     getUsers();
   }, []);

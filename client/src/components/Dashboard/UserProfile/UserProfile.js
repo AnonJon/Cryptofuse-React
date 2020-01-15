@@ -17,6 +17,8 @@ import CardHeader from "./Card/CardHeader.js";
 import CardAvatar from "./Card/CardAvatar.js";
 import CardBody from "./Card/CardBody.js";
 import CardFooter from "./Card/CardFooter";
+import TwoFactor from "../../Auth/TwoFactor";
+import Switch from "@material-ui/core/Switch";
 
 const styles = {
   cardCategoryWhite: {
@@ -44,6 +46,9 @@ const styles = {
 const useStyles = makeStyles(styles);
 
 const UserProfile = ({ auth }) => {
+  const { user, isLoading, isLoaded } = auth;
+  const [twoFA, setTwoFA] = useState(user.twoFactorSetup);
+  console.log(user);
   const ranking = () => {
     if (user.coin_total < 100) {
       return <p>Bronze User</p>;
@@ -53,7 +58,10 @@ const UserProfile = ({ auth }) => {
       return <p>Gold User</p>;
     }
   };
-  const { user, isLoading, isLoaded } = auth;
+
+  const handleChange = () => {
+    setTwoFA(!twoFA);
+  };
 
   const classes = useStyles();
 
@@ -68,7 +76,47 @@ const UserProfile = ({ auth }) => {
   return (
     <div className={classes.main}>
       <GridContainer>
-        <GridItem xs={12} sm={12} md={8}>
+        <GridItem xs={12} sm={12} md={6}>
+          <Card profile>
+            <CardAvatar profile>
+              <a href="#pablo" onClick={e => e.preventDefault()}>
+                <PersonIcon
+                  style={{
+                    height: "100px",
+                    width: "100px",
+                    color: "rgb(178,67, 87)"
+                  }}
+                />
+              </a>
+            </CardAvatar>
+            <CardBody profile>
+              <h6 className={classes.cardCategory}>{ranking()} </h6>
+              <h4 className={classes.cardTitle}>
+                {user.first_name} {user.last_name}
+              </h4>
+              <p className={classes.description}>{user.about}</p>
+              <Link to="/dashboard/invest" style={{ textDecoration: "none" }}>
+                <Button color="primary" round>
+                  Invest
+                </Button>
+              </Link>
+            </CardBody>
+          </Card>
+        </GridItem>
+        <GridItem xs={12} sm={12} md={5}>
+          <Card profile>
+            <CardBody profile>
+              <h4 className={classes.cardCategory}>Set Up 2FA</h4>
+
+              <p className={classes.description}>
+                Please Set Up 2FA If Not Done So.
+              </p>
+              <Switch checked={twoFA} onChange={handleChange} value={twoFA} />
+              <TwoFactor />
+            </CardBody>
+          </Card>
+        </GridItem>
+        <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="primary">
               <h4 className={classes.cardTitleWhite}>Edit Profile</h4>
@@ -168,33 +216,6 @@ const UserProfile = ({ auth }) => {
             <CardFooter>
               <Button color="primary">Update Profile</Button>
             </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card profile>
-            <CardAvatar profile>
-              <a href="#pablo" onClick={e => e.preventDefault()}>
-                <PersonIcon
-                  style={{
-                    height: "100px",
-                    width: "100px",
-                    color: "rgb(178,67, 87)"
-                  }}
-                />
-              </a>
-            </CardAvatar>
-            <CardBody profile>
-              <h6 className={classes.cardCategory}>{ranking()} </h6>
-              <h4 className={classes.cardTitle}>
-                {user.first_name} {user.last_name}
-              </h4>
-              <p className={classes.description}>{user.about}</p>
-              <Link to="/dashboard/invest" style={{ textDecoration: "none" }}>
-                <Button color="primary" round>
-                  Invest
-                </Button>
-              </Link>
-            </CardBody>
           </Card>
         </GridItem>
       </GridContainer>
