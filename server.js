@@ -6,10 +6,10 @@ const app = express();
 const cors = require("cors");
 const PORT = process.env.PORT || 5000;
 const dotenv = require("dotenv");
-
+app.use(cors());
 // Bodyparser Middleware
 app.use(express.json());
-app.use(cors());
+
 // DB Config
 const db = process.env.mongoURI;
 dotenv.config();

@@ -25,8 +25,8 @@ export default class Chart3 extends Component {
     };
   }
   async componentDidMount() {
-    const url =
-      "https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=7";
+    var proxyUrl = "https://cors-anywhere.herokuapp.com/";
+    const url = `https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=7`;
     const response = await fetch(url);
     const data = await response.json();
 

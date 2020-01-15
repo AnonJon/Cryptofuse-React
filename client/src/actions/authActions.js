@@ -41,16 +41,29 @@ export const register = ({
   password
 }) => dispatch => {
   //Create a bitcoin address
+
+  const config1 = {
+    headers: {
+      "Access-Control-Allow-Origin": "*"
+    }
+  };
   axios
     .get(
-      `http://localhost:3001/merchant/${process.env.REACT_APP_WALLET_GUID}/accounts/create?${process.env.REACT_APP_WALLET_PASS}&label=${first_name}${last_name}`
+      `/merchant/${process.env.REACT_APP_WALLET_GUID}/accounts/create?${process.env.REACT_APP_WALLET_PASS}&label=${first_name}${last_name}`,
+      config1
     )
     .then(res => {
       console.log("response 1", res);
       //Get the last account that was created
+      const config2 = {
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        }
+      };
       axios
         .get(
-          `http://localhost:3001/merchant/${process.env.REACT_APP_WALLET_GUID}/accounts/?${process.env.REACT_APP_WALLET_PASS}`
+          `/merchant/${process.env.REACT_APP_WALLET_GUID}/accounts/?${process.env.REACT_APP_WALLET_PASS}`,
+          config2
         )
         .then(res => {
           console.log("response 2", res.data[res.data.length - 1]);
@@ -61,7 +74,8 @@ export const register = ({
           // Headers
           const config = {
             headers: {
-              "Content-Type": "application/json"
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*"
             }
           };
 
