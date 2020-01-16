@@ -6,9 +6,12 @@ const app = express();
 const cors = require("cors");
 const PORT = process.env.PORT || 5000;
 const dotenv = require("dotenv");
+const proxy = require("http-proxy-middleware");
 app.use(cors());
 // Bodyparser Middleware
 app.use(express.json());
+
+app.use(proxy("/merchant", { target: "http://localhost:3001" }));
 
 // DB Config
 const db = process.env.mongoURI;
