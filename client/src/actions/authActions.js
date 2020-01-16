@@ -50,7 +50,7 @@ export const register = ({
   };
   axios
     .get(
-      `http://localhost:3000/merchant/${process.env.REACT_APP_WALLET_GUID}/accounts/create?${process.env.REACT_APP_WALLET_PASS}&label=${first_name}${last_name}`,
+      `/merchant/${process.env.REACT_APP_WALLET_GUID}/accounts/create?${process.env.REACT_APP_WALLET_PASS}&label=${first_name}${last_name}`,
       config1
     )
     .then(res => {
@@ -64,7 +64,7 @@ export const register = ({
       };
       axios
         .get(
-          `http://localhost:3000/merchant/${process.env.REACT_APP_WALLET_GUID}/accounts/?${process.env.REACT_APP_WALLET_PASS}`,
+          `/merchant/${process.env.REACT_APP_WALLET_GUID}/accounts/?${process.env.REACT_APP_WALLET_PASS}`,
           config2
         )
         .then(res => {
