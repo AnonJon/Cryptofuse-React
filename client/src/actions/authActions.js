@@ -53,7 +53,7 @@ export const register = ({
       config1
     )
     .then(res => {
-      console.log("response 1", res);
+      console.log("response 1", res.data);
       //Get the last account that was created
       const config2 = {
         headers: {
@@ -69,7 +69,7 @@ export const register = ({
           const { receiveAddress, extendedPublicKey } = res.data[
             res.data.length - 1
           ];
-          console.log("response 2", res);
+          console.log("response 2", res.data);
 
           // Headers
           const config = {
