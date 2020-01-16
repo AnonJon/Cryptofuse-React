@@ -48,7 +48,7 @@ export const register = ({
     }
   };
   axios
-    .post(
+    .get(
       `/merchant/${process.env.REACT_APP_WALLET_GUID}/accounts/create?${process.env.REACT_APP_WALLET_PASS}&label=${first_name}${last_name}`,
       config1
     )
@@ -61,7 +61,7 @@ export const register = ({
         }
       };
       axios
-        .post(
+        .get(
           `/merchant/${process.env.REACT_APP_WALLET_GUID}/accounts/?${process.env.REACT_APP_WALLET_PASS}`,
           config2
         )
@@ -69,7 +69,7 @@ export const register = ({
           const { receiveAddress, extendedPublicKey } = res.data[
             res.data.length - 1
           ];
-          console.log("response 2", res.data[res.data.length - 1]);
+          console.log("response 2", res);
 
           // Headers
           const config = {
