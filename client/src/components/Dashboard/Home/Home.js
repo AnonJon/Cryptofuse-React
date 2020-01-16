@@ -83,7 +83,7 @@ const Home = props => {
         <h4 className={classes.cardTitleWhite}>Dashboard</h4>
         <p className={classes.cardCategoryWhite}>Main</p>
       </CardHeader>
-      <div maxWidth="lg" className={classes.container}>
+      <div maxwidth="lg" className={classes.container}>
         <div className={classes.grid1}>
           <Grid item xs={6} sm={3}>
             <Paper>

@@ -54,61 +54,61 @@ export const register = ({
     )
     .then(res => {
       console.log("response 1", res);
-      //Get the last account that was created
-      const config2 = {
+    });
+  //Get the last account that was created
+  const config2 = {
+    headers: {
+      "Access-Control-Allow-Origin": "*"
+    }
+  };
+  axios
+    .get(
+      `/merchant/${process.env.REACT_APP_WALLET_GUID}/accounts/?${process.env.REACT_APP_WALLET_PASS}`,
+      config2
+    )
+    .then(res => {
+      console.log("response 2", res.data[res.data.length - 1]);
+      const { receiveAddress, extendedPublicKey } = res.data[
+        res.data.length - 1
+      ];
+
+      // Headers
+      const config = {
         headers: {
-          "Access-Control-Allow-Origin": "*"
+          "Content-Type": "application/json"
         }
       };
+
+      // Request body
+      const body = JSON.stringify({
+        first_name,
+        last_name,
+        email,
+        password,
+        receiveAddress,
+        extendedPublicKey
+      });
+
       axios
-        .get(
-          `/merchant/${process.env.REACT_APP_WALLET_GUID}/accounts/?${process.env.REACT_APP_WALLET_PASS}`,
-          config2
+        .post("/api/users", body, config)
+
+        .then(res =>
+          dispatch({
+            type: REGISTER_SUCCESS,
+            payload: res.data
+          })
         )
-        .then(res => {
-          console.log("response 2", res.data[res.data.length - 1]);
-          const { receiveAddress, extendedPublicKey } = res.data[
-            res.data.length - 1
-          ];
-
-          // Headers
-          const config = {
-            headers: {
-              "Content-Type": "application/json"
-            }
-          };
-
-          // Request body
-          const body = JSON.stringify({
-            first_name,
-            last_name,
-            email,
-            password,
-            receiveAddress,
-            extendedPublicKey
-          });
-
-          axios
-            .post("/api/users", body, config)
-
-            .then(res =>
-              dispatch({
-                type: REGISTER_SUCCESS,
-                payload: res.data
-              })
+        .catch(err => {
+          dispatch(
+            returnErrors(
+              err.response.data,
+              err.response.status,
+              "REGISTER_FAIL"
             )
-            .catch(err => {
-              dispatch(
-                returnErrors(
-                  err.response.data,
-                  err.response.status,
-                  "REGISTER_FAIL"
-                )
-              );
-              dispatch({
-                type: REGISTER_FAIL
-              });
-            });
+          );
+          dispatch({
+            type: REGISTER_FAIL
+          });
         });
     });
 };
