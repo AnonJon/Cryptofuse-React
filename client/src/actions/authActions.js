@@ -44,6 +44,7 @@ export const register = ({
 
   const config1 = {
     headers: {
+      "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*"
     }
   };
@@ -57,6 +58,7 @@ export const register = ({
       //Get the last account that was created
       const config2 = {
         headers: {
+          "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*"
         }
       };
