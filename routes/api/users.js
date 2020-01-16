@@ -19,8 +19,6 @@ dotenv.config();
 router.post("/userContact", (req, res) => {
   const { name, email, subject, message } = req.body;
 
-  console.log(req.body);
-
   const HTMLemail = `
   <h3>New Cryptofuse Contact Form</h3>
   <ul>
