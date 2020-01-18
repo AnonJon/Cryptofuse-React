@@ -75,3 +75,54 @@ export const updateCoinTotal = (id, coin_total) => dispatch => {
     })
   );
 };
+
+//Update TOTP
+export const updateTOTP = id => dispatch => {
+  const config1 = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+
+  axios.post("/api/auth/totp-secret", config1).then(res => {
+    let totpSecret = res.data.secret;
+
+    // Headers
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    // Request body
+    const body = JSON.stringify({ totpSecret });
+
+    axios.patch(`/api/users/updateTOTP/${id}`, body, config).then(res =>
+      dispatch({
+        type: "UPDATE_TOTP",
+        value: { id: id, totpSecret: totpSecret }
+      })
+    );
+  });
+};
+
+//Update Two-Factor setup
+export const twoFactorSetup = (id, twoFactorSetup) => dispatch => {
+  // Headers
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+  // Request body
+  const body = JSON.stringify({ twoFactorSetup });
+
+  axios
+    .patch(`/api/users/updateTwoFactorSignin/${id}`, body, config)
+    .then(res =>
+      dispatch({
+        type: "UPDATE_TWOFACTOR_SETUP",
+        value: { id: id, twoFactorSetup: twoFactorSetup }
+      })
+    );
+};

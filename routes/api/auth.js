@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const config = require("config");
+
 const jwt = require("jsonwebtoken");
 const auth = require("../../middleware/auth");
 const dotenv = require("dotenv");
@@ -89,9 +89,9 @@ router.post("/totp-generate", (req, res, next) => {
 router.post("/totp-validate", (req, res, next) => {
   res.send({
     valid: Speakeasy.totp.verify({
-      secret: req.body.secret,
+      secret: req.body.totpSecret,
       encoding: "base32",
-      token: req.body.token,
+      token: req.body.code,
       window: 0
     })
   });

@@ -6,6 +6,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import axios from "axios";
 
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -46,11 +47,18 @@ const CssTextField = withStyles({
   }
 })(TextField);
 
-const TwoFactorLogin = ({ error, login, history, isAuthenticated, auth }) => {
+const TwoFactorLogin = ({
+  error,
+  twoFactorLoginCode,
+  history,
+  isTwoFactorVerified,
+  auth
+}) => {
   const [msg, setMsg] = useState(null);
   const [code, setCode] = useState("");
 
   const { user } = auth;
+
   const onChangeCode = e => {
     setCode(e.target.value);
   };
@@ -62,14 +70,19 @@ const TwoFactorLogin = ({ error, login, history, isAuthenticated, auth }) => {
     } else {
       setMsg(null);
     }
+    if (isTwoFactorVerified) {
+      history.push("/dashboard");
+    }
   });
-  console.log(user);
+
   const onSubmit = e => {
+    const { totpSecret } = auth.user;
+
     e.preventDefault();
 
-    // Attempt to login
+    const twoFactorCheck = { totpSecret, code };
 
-    twoFactorLoginCode(code);
+    twoFactorLoginCode(twoFactorCheck);
   };
 
   return (
@@ -120,7 +133,7 @@ const TwoFactorLogin = ({ error, login, history, isAuthenticated, auth }) => {
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  isTwoFactorVerified: state.auth.isTwoFactorVerified,
   auth: state.auth,
   error: state.error
 });

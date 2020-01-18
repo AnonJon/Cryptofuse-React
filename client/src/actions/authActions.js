@@ -40,79 +40,42 @@ export const register = ({
   email,
   password
 }) => dispatch => {
-  //Create a bitcoin address
+  axios.post("/api/auth/totp-secret").then(res => {
+    const totpSecret = res.data.secret;
 
-  const config1 = {
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*"
-    }
-  };
-  axios
-    .get(
-      `/merchant/${process.env.REACT_APP_WALLET_GUID}/accounts/create?${process.env.REACT_APP_WALLET_PASS}&label=${first_name}${last_name}`,
-      config1
-    )
-    .then(res => {
-      console.log("response 1", res.data);
-      //Get the last account that was created
-      const config2 = {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*"
-        }
-      };
-      axios
-        .get(
-          `/merchant/${process.env.REACT_APP_WALLET_GUID}/accounts/?${process.env.REACT_APP_WALLET_PASS}`,
-          config2
-        )
-        .then(res => {
-          const { receiveAddress, extendedPublicKey } = res.data[
-            res.data.length - 1
-          ];
-          console.log("response 2", res.data);
+    // Headers
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
 
-          // Headers
-          const config = {
-            headers: {
-              "Content-Type": "application/json"
-            }
-          };
-
-          // Request body
-          const body = JSON.stringify({
-            first_name,
-            last_name,
-            email,
-            password,
-            receiveAddress,
-            extendedPublicKey
-          });
-
-          axios
-            .post("/api/users", body, config)
-
-            .then(res =>
-              dispatch({
-                type: REGISTER_SUCCESS,
-                payload: res.data
-              })
-            )
-            .catch(err => {
-              dispatch(
-                returnErrors(
-                  err.response.data,
-                  err.response.status,
-                  "REGISTER_FAIL"
-                )
-              );
-              dispatch({
-                type: REGISTER_FAIL
-              });
-            });
-        });
+    // Request body
+    const body = JSON.stringify({
+      first_name,
+      last_name,
+      email,
+      password,
+      totpSecret
     });
+
+    axios
+      .post("/api/users", body, config)
+      .then(res =>
+        dispatch({
+          type: REGISTER_SUCCESS,
+          payload: res.data
+        })
+      )
+      .catch(err => {
+        dispatch(
+          returnErrors(err.response.data, err.response.status, "REGISTER_FAIL")
+        );
+        dispatch({
+          type: REGISTER_FAIL
+        });
+      });
+  });
 };
 
 // Login User
@@ -145,8 +108,9 @@ export const login = ({ email, password }) => dispatch => {
     });
 };
 
-export const twoFactorLoginCode = code => dispatch => {
+export const twoFactorLoginCode = ({ totpSecret, code }) => dispatch => {
   // Headers
+
   const config = {
     headers: {
       "Content-Type": "application/json"
@@ -154,24 +118,21 @@ export const twoFactorLoginCode = code => dispatch => {
   };
 
   // Request body
-  const body = JSON.stringify(code);
+  const body = JSON.stringify({ totpSecret, code });
 
-  axios
-    .post("/api/auth/totp-validate", body, config)
-    .then(res =>
+  axios.post("/api/auth/totp-validate", body, config).then(res => {
+    const isValid = res.data.valid;
+    if (isValid) {
       dispatch({
         type: "TWO_FACTOR_LOGIN_SUCCESS",
         payload: res.data
-      })
-    )
-    .catch(err => {
-      dispatch(
-        returnErrors(err.response.data, err.response.status, "LOGIN_FAIL")
-      );
+      });
+    } else {
       dispatch({
         type: LOGIN_FAIL
       });
-    });
+    }
+  });
 };
 
 // Logout User

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { twoFactorSetup } from "../../../actions/userActions";
 // @material-ui/core .
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -45,7 +46,7 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-const UserProfile = ({ auth }) => {
+const UserProfile = ({ auth, twoFactorSetup }) => {
   const { user, isLoading, isLoaded } = auth;
   const [twoFA, setTwoFA] = useState(user.twoFactorSetup);
   console.log(user);
@@ -61,6 +62,8 @@ const UserProfile = ({ auth }) => {
 
   const handleChange = () => {
     setTwoFA(!twoFA);
+
+    twoFactorSetup(user._id, twoFA);
   };
 
   const classes = useStyles();
@@ -226,4 +229,4 @@ const UserProfile = ({ auth }) => {
 const mapStateToProps = state => ({
   auth: state.auth
 });
-export default connect(mapStateToProps, null)(UserProfile);
+export default connect(mapStateToProps, { twoFactorSetup })(UserProfile);

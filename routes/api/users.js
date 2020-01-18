@@ -112,15 +112,21 @@ router.patch("/updateTwoFactorSignin/:userId", async (req, res) => {
   }
 });
 
+//Update the TOTP code to user
+router.patch("/updateTOTP/:userId", async (req, res) => {
+  try {
+    const updateTOTP = await User.updateOne(
+      { _id: req.params.userId },
+      { $set: { totpSecret: req.body.totpSecret } }
+    );
+    res.json(updateTOTP);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+
 router.post("/", (req, res) => {
-  const {
-    first_name,
-    last_name,
-    email,
-    password,
-    receiveAddress,
-    extendedPublicKey
-  } = req.body;
+  const { first_name, last_name, email, password, totpSecret } = req.body;
 
   // Simple validation
   if (!first_name || !last_name || !email || !password) {
@@ -136,8 +142,7 @@ router.post("/", (req, res) => {
       last_name,
       email,
       password,
-      receiveAddress,
-      extendedPublicKey
+      totpSecret
     });
 
     // Create salt & hash

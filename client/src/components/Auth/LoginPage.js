@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Modal,
-  ModalHeader,
-  ModalBody,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Alert
-} from "reactstrap";
+import { Alert } from "reactstrap";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -30,12 +21,7 @@ import { withRouter } from "react-router";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Link
-} from "react-router-dom";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 import { withStyles } from "@material-ui/core/styles";
 
@@ -60,22 +46,6 @@ const CssTextField = withStyles({
     }
   }
 })(TextField);
-
-// const onSubmit = e => {
-//   e.preventDefault();
-
-//   const { email, password } = this.state;
-
-//   const user = {
-//     email,
-//     password
-//   };
-
-//   // Attempt to login
-//   this.props.login(user);
-
-//   this.props.history.push("/dashboard");
-// };
 
 const LoginPage = ({ error, login, history, isAuthenticated, auth }) => {
   const [msg, setMsg] = useState(null);
@@ -105,7 +75,7 @@ const LoginPage = ({ error, login, history, isAuthenticated, auth }) => {
       }
     }
   });
-  console.log(user);
+
   const onSubmit = e => {
     e.preventDefault();
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import QRCode from "qrcode.react";
 import Button from "../Dashboard/UserProfile/CustomButtons/Button";
+import { connect } from "react-redux";
 import {
   Dialog,
   DialogTitle,
@@ -9,9 +10,11 @@ import {
   Typography
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
+import { updateTOTP } from "../../actions/userActions";
 
-export default function TwoFactor() {
+const TwoFactor = ({ updateTOTP, auth }) => {
   const [open, setOpen] = useState(false);
+  const { user } = auth;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -34,7 +37,7 @@ export default function TwoFactor() {
         </DialogTitle>
         <DialogContent dividers>
           <QRCode
-            value="otpauth://totp/Example:email?secret=GJUXGXTJNMRSYSSAOJHDQXTDHRVWQQLT&issuer=Cryptofuse"
+            value={`otpauth://totp/${user.email}?secret=${user.totpSecret}&issuer=Cryptofuse`}
             level="H"
             includeMargin={true}
           />
@@ -42,4 +45,9 @@ export default function TwoFactor() {
       </Dialog>
     </div>
   );
-}
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+export default connect(mapStateToProps, { updateTOTP })(TwoFactor);

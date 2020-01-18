@@ -66,7 +66,8 @@ export default function(state = initialState, action) {
         user: null,
         isAuthenticated: false,
         isLoading: false,
-        isLoaded: false
+        isLoaded: false,
+        isTwoFactorVerified: false
       };
     default:
       return state;

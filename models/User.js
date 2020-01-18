@@ -30,11 +30,11 @@ const UserSchema = new Schema({
   },
   receiveAddress: {
     type: String,
-    required: true
+    default: ""
   },
   extendedPublicKey: {
     type: String,
-    required: true
+    default: ""
   },
   bitcoin_amount: {
     type: String,
@@ -56,7 +56,7 @@ const UserSchema = new Schema({
   },
   totpSecret: {
     type: String,
-    default: ""
+    required: true
   },
   twoFactorSetup: {
     type: Boolean,
