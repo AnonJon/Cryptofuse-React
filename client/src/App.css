@@ -276,6 +276,18 @@ li {
 
 /* -----------------------------------------------------------Dashboard------------------------------------ */
 
+.ct-series-a .ct-line {
+  stroke: white;
+  stroke-width: 5px;
+}
+.ct-series-a .ct-bar {
+  stroke: white;
+  stroke-width: 5px;
+}
+.ct-series-a .ct-point {
+  stroke: white;
+}
+
 /* --------------------------------------------------------footer------------------------------------- */
 .footerContainer {
   display: flex;
