@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import "../../App.css";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import LoadingBackdrop from "../Auth/LoadingBackdrop";
 
 import LoginPage from "../Auth/LoginPage";
 import SnackbarError from "../Auth/SnackbarError";
@@ -30,6 +31,7 @@ import {
   deleteUser,
   updateCoinTotal
 } from "../../actions/userActions";
+import { getAdmin } from "../../actions/adminAuctions";
 import Danger from "../Dashboard/components/Typography/Danger";
 import CardFooter from "../Dashboard/components/Card/CardFooter.js";
 import CardIcon from "../Dashboard/components/Card/CardIcon.js";
@@ -42,16 +44,34 @@ import CardBody from "../Dashboard/UserProfile/Card/CardBody";
 import styles from "../../assets/jss/material-dashboard-react/views/dashboardStyle";
 const useStyles = makeStyles(styles);
 
-const AdminHome = ({ users, auth, getUsers, deleteUser, updateCoinTotal }) => {
+const AdminHome = ({
+  users,
+  auth,
+  getUsers,
+  deleteUser,
+  updateCoinTotal,
+  getAdmin,
+  admin
+}) => {
   const classes = useStyles();
   const { user, isLoading, isLoaded } = auth;
   const [open, setOpen] = useState(true);
+  const [tokenCount, setTokenCount] = useState(null);
+  const [fusePrice, setFusePrice] = useState(null);
 
   useEffect(() => {
     getUsers();
+    getAdmin();
   }, []);
 
-  if (isLoading || !isLoaded || user.first_name !== "admin") {
+  useEffect(() => {
+    if (admin.adminLoaded) {
+      setTokenCount(admin[0].fuse_token_amount);
+      setFusePrice(admin[0].fuse_price);
+    }
+  });
+
+  if (!isLoaded || user.first_name !== "admin") {
     return (
       <div>
         <LoginPage />
@@ -70,7 +90,7 @@ const AdminHome = ({ users, auth, getUsers, deleteUser, updateCoinTotal }) => {
                 <AccountBalanceIcon />
               </CardIcon>
               <p className={classes.cardCategory}>Fuse Token Price</p>
-              <h3 className={classes.cardTitle}>0.000</h3>
+              <h3 className={classes.cardTitle}>${fusePrice}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -87,7 +107,9 @@ const AdminHome = ({ users, auth, getUsers, deleteUser, updateCoinTotal }) => {
                 <LoopIcon />
               </CardIcon>
               <p className={classes.cardCategory}>Total Fuse Tokens Issued</p>
-              <h3 className={classes.cardTitle}>73,567</h3>
+              <h3 className={classes.cardTitle}>
+                {tokenCount === null ? <h4>Loading...</h4> : tokenCount}
+              </h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -183,12 +205,14 @@ const AdminHome = ({ users, auth, getUsers, deleteUser, updateCoinTotal }) => {
 const mapStateToProps = state => {
   return {
     auth: state.auth,
-    users: state.users
+    users: state.users,
+    admin: state.admin
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
     getUsers: () => dispatch(getUsers()),
+    getAdmin: () => dispatch(getAdmin()),
     deleteUser: id => dispatch(deleteUser(id)),
     updateCoinTotal: (id, coin_total) =>
       dispatch(updateCoinTotal(id, coin_total))

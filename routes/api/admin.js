@@ -13,7 +13,7 @@ router.post("/", (req, res) => {
   newAdmin.save().then(admin => res.json(admin));
 });
 
-router.get("/", async (req, res) => {
+router.get("/getAdmin", async (req, res) => {
   try {
     const admins = await Admin.find();
     res.json(admins);

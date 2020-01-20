@@ -6,6 +6,8 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -22,6 +24,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import LoadingBackdrop from "./LoadingBackdrop";
 
 import { withStyles } from "@material-ui/core/styles";
 
@@ -46,11 +49,19 @@ const CssTextField = withStyles({
     }
   }
 })(TextField);
+const useStyles = makeStyles(theme => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff"
+  }
+}));
 
 const LoginPage = ({ error, login, history, isAuthenticated, auth }) => {
+  const classes = useStyles();
   const [msg, setMsg] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [open, setOpen] = useState(false);
   const { user } = auth;
   const onChangeEmail = e => {
     setEmail(e.target.value);
@@ -78,6 +89,7 @@ const LoginPage = ({ error, login, history, isAuthenticated, auth }) => {
 
   const onSubmit = e => {
     e.preventDefault();
+    setOpen(true);
 
     const loginUser = {
       email,
@@ -85,8 +97,9 @@ const LoginPage = ({ error, login, history, isAuthenticated, auth }) => {
     };
 
     // Attempt to login
-
-    login(loginUser);
+    setTimeout(() => {
+      login(loginUser);
+    }, 3000);
   };
 
   return (
@@ -169,50 +182,10 @@ const LoginPage = ({ error, login, history, isAuthenticated, auth }) => {
         </form>
       </div>
       <Box mt={8}></Box>
+      <Backdrop className={classes.backdrop} open={open}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </Container>
-
-    // <Modal centered={true} isOpen={this.state.modal} toggle={this.toggle}>
-    //   <ModalHeader toggle={this.toggle}>Login</ModalHeader>
-    //   <ModalBody>
-    //     {this.state.msg ? (
-    //       <Alert color="danger">{this.state.msg}</Alert>
-    //     ) : null}
-    //     <Form onSubmit={this.onSubmit}>
-    //       <FormGroup>
-    //         <Label for="email">Email</Label>
-    //         <Input
-    //           type="email"
-    //           name="email"
-    //           id="email"
-    //           placeholder="Email"
-    //           className="mb-3"
-    //           onChange={this.onChange}
-    //         />
-
-    //         <Label for="password">Password</Label>
-    //         <Input
-    //           type="password"
-    //           name="password"
-    //           id="password"
-    //           placeholder="Password"
-    //           className="mb-3"
-    //           onChange={this.onChange}
-    //         />
-
-    //         <Button
-    //           style={{
-    //             marginTop: "2rem",
-    //             backgroundColor: "indianred",
-    //             border: "none"
-    //           }}
-    //           block
-    //         >
-    //           Login
-    //         </Button>
-    //       </FormGroup>
-    //     </Form>
-    //   </ModalBody>
-    // </Modal>
   );
 };
 

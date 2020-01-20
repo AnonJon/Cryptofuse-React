@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { Provider } from "react-redux";
 import store from "./store";
 import { loadUser } from "./actions/authActions";
+import { getAdmin } from "./actions/adminAuctions";
 
 import SideBar from "./components/SideBar";
 
@@ -27,6 +28,7 @@ import TwoFactorLogin from "./components/Auth/TwoFactorLogin";
 class App extends Component {
   componentDidMount() {
     store.dispatch(loadUser(loadUser()));
+    store.dispatch(getAdmin(getAdmin()));
   }
   render() {
     return (

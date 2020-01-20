@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { useEffect, useState } from "react";
 import ChartistGraph from "react-chartist";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Typography from "@material-ui/core/Typography";
+import { getAdmin } from "../../../actions/adminAuctions";
 //icons
 import Icon from "@material-ui/core/Icon";
 import FaceIcon from "@material-ui/icons/Face";
@@ -53,10 +54,25 @@ import {
 
 const useStyles = makeStyles(styles);
 
-const Home = props => {
+const Home = ({ auth, admin }) => {
   const classes = useStyles();
+  const [fusePrice, setFusePrice] = useState(null);
+  const [portValue, setPortValue] = useState("0.00");
 
-  const { isAuthenticated, user } = props.auth;
+  const { isAuthenticated, user } = auth;
+
+  useEffect(() => {
+    getAdmin();
+  }, []);
+
+  useEffect(() => {
+    if (admin.adminLoaded) {
+      setFusePrice(admin[0].fuse_price);
+      setPortValue(
+        Math.round(user.coin_total * admin[0].fuse_price * 100) / 100
+      );
+    }
+  });
 
   const ifAuth = (
     <div style={{ marginTop: "100px" }}>
@@ -71,8 +87,8 @@ const Home = props => {
               <CardIcon color="warning">
                 <AccountBalanceIcon />
               </CardIcon>
-              <p className={classes.cardCategory}>Bitcoin Wallet</p>
-              <h3 className={classes.cardTitle}>0.000</h3>
+              <p className={classes.cardCategory}>Fuse Token Price</p>
+              <h3 className={classes.cardTitle}>${fusePrice}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -91,7 +107,7 @@ const Home = props => {
                 <AttachMoneyIcon />
               </CardIcon>
               <p className={classes.cardCategory}>Portfolio Value</p>
-              <h3 className={classes.cardTitle}>$34,245</h3>
+              <h3 className={classes.cardTitle}>${portValue}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -230,6 +246,7 @@ const Home = props => {
   );
 };
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  admin: state.admin
 });
-export default connect(mapStateToProps, null)(Home);
+export default connect(mapStateToProps, { getAdmin })(Home);

@@ -1,21 +1,24 @@
-export default (state = [], action) => {
+const initialState = {
+  adminLoaded: false,
+  admin: null
+};
+
+export default (state = initialState, action) => {
   switch (action.type) {
     case "GET_ADMIN":
-      return [...action.payload];
-    case "DELETE_USER":
-      const users = [...state];
-      const index = users.findIndex(user => user._id === action.value);
-      users.splice(index, 1);
-      return users;
-    case "UPDATE_COIN_TOTAL":
-      let usersUpdate = [...state];
-      const updateIndex = usersUpdate.filter(
-        user => user._id === action.value.id
-      );
-      updateIndex[0].coin_total = action.value.coins;
-      return usersUpdate;
-    case "CONTACT_FORM_SUCCESS":
-      return "Message Sent";
+      return {
+        ...action.payload,
+        adminLoaded: true
+      };
+    case "UPDATE_FUSE_PRICE":
+      let admin = [...state];
+      admin.fuse_price = action.value.fuse_price;
+      return admin;
+    case "UPDATE_FUSE_TOKEN_AMOUNT":
+      let adminUpdate = [...state];
+      adminUpdate.fuse_token_amount = action.value.fuse_token_amount;
+      return adminUpdate;
+
     default:
       return state;
   }
