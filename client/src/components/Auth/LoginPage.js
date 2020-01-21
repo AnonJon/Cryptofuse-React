@@ -56,7 +56,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const LoginPage = ({ error, login, history, isAuthenticated, auth }) => {
+const LoginPage = ({
+  error,
+  login,
+  history,
+  isAuthenticated,
+  auth,
+  clearErrors
+}) => {
   const classes = useStyles();
   const [msg, setMsg] = useState(null);
   const [email, setEmail] = useState("");
@@ -74,6 +81,7 @@ const LoginPage = ({ error, login, history, isAuthenticated, auth }) => {
     // Check for register error
     if (error.id === "LOGIN_FAIL") {
       setMsg(error.msg.msg);
+      setOpen(false);
     } else {
       setMsg(null);
     }
@@ -89,6 +97,8 @@ const LoginPage = ({ error, login, history, isAuthenticated, auth }) => {
 
   const onSubmit = e => {
     e.preventDefault();
+    clearErrors();
+    setMsg(null);
     setOpen(true);
 
     const loginUser = {
@@ -96,7 +106,6 @@ const LoginPage = ({ error, login, history, isAuthenticated, auth }) => {
       password
     };
 
-    // Attempt to login
     setTimeout(() => {
       login(loginUser);
     }, 3000);

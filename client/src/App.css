@@ -265,6 +265,7 @@ li {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   max-width: 500px;
 }
 .portfolio-right-wrapper h1 {
@@ -378,4 +379,31 @@ li {
 .admin-rows {
   font-weight: 100;
   color: aquamarine;
+}
+
+@media only screen and (max-width: 550px) {
+  .title-div {
+    color: white;
+    position: absolute;
+    top: 25%;
+    left: 5%;
+  }
+}
+
+@media only screen and (min-width: 551px) and (max-width: 770px) {
+  .title-div {
+    color: white;
+    position: absolute;
+    top: 25%;
+    left: 20%;
+  }
+}
+
+@media only screen and (min-width: 771px) and (max-width: 1024px) {
+  .title-div {
+    color: white;
+    position: absolute;
+    top: 25%;
+    left: 27%;
+  }
 }

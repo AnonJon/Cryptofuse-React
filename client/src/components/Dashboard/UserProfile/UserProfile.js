@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { twoFactorSetup } from "../../../actions/userActions";
@@ -46,10 +46,25 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-const UserProfile = ({ auth, twoFactorSetup }) => {
-  const { user, isLoading, isLoaded } = auth;
-  const [twoFA, setTwoFA] = useState(user.twoFactorSetup);
-  console.log(user);
+const UserProfile = ({ auth, twoFactorSetup, history }) => {
+  const {
+    user,
+    isLoading,
+    isLoaded,
+    isTwoFactorVerified,
+    isAuthenticated
+  } = auth;
+  const [twoFA, setTwoFA] = useState(null);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      if (user.twoFactorSetup && !isTwoFactorVerified) {
+        history.push("/two-factor");
+      }
+    }
+
+    setTwoFA(user.twoFactorSetup);
+  });
   const ranking = () => {
     if (user.coin_total < 100) {
       return <p>Bronze User</p>;

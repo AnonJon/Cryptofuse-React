@@ -7,6 +7,8 @@ import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import axios from "axios";
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -47,17 +49,27 @@ const CssTextField = withStyles({
   }
 })(TextField);
 
+const useStyles = makeStyles(theme => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff"
+  }
+}));
+
 const TwoFactorLogin = ({
   error,
   twoFactorLoginCode,
   history,
   isTwoFactorVerified,
-  auth
+  auth,
+  clearErrors
 }) => {
+  const classes = useStyles();
   const [msg, setMsg] = useState(null);
   const [code, setCode] = useState("");
+  const [open, setOpen] = useState(false);
 
-  const { user } = auth;
+  const { user, isLoadedTwoFactor } = auth;
 
   const onChangeCode = e => {
     setCode(e.target.value);
@@ -65,8 +77,9 @@ const TwoFactorLogin = ({
 
   useEffect(() => {
     // Check for register error
-    if (error.id === "LOGIN_FAIL") {
-      setMsg(error.msg.msg);
+    if (isLoadedTwoFactor === false) {
+      setMsg("Invalid Credentials");
+      setOpen(false);
     } else {
       setMsg(null);
     }
@@ -79,10 +92,14 @@ const TwoFactorLogin = ({
     const { totpSecret } = auth.user;
 
     e.preventDefault();
+    clearErrors();
+    setMsg(null);
+    setOpen(true);
 
     const twoFactorCheck = { totpSecret, code };
-
-    twoFactorLoginCode(twoFactorCheck);
+    setTimeout(() => {
+      twoFactorLoginCode(twoFactorCheck);
+    }, 3000);
   };
 
   return (
@@ -100,7 +117,7 @@ const TwoFactorLogin = ({
           src={require("../../images/beaker-logo.png")}
         />
         <Typography component="h1" variant="h5">
-          Two-Factor Authorization
+          Two-Factor Authentication
         </Typography>
         {msg ? <Alert color="danger">{msg}</Alert> : null}
         <form onSubmit={onSubmit}>
@@ -128,6 +145,9 @@ const TwoFactorLogin = ({
         </form>
       </div>
       <Box mt={8}></Box>
+      <Backdrop className={classes.backdrop} open={open}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </Container>
   );
 };

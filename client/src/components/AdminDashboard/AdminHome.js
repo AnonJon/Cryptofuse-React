@@ -51,10 +51,17 @@ const AdminHome = ({
   deleteUser,
   updateCoinTotal,
   getAdmin,
-  admin
+  admin,
+  history
 }) => {
   const classes = useStyles();
-  const { user, isLoading, isLoaded } = auth;
+  const {
+    user,
+    isLoading,
+    isLoaded,
+    isAuthenticated,
+    isTwoFactorVerified
+  } = auth;
   const [open, setOpen] = useState(true);
   const [tokenCount, setTokenCount] = useState(null);
   const [fusePrice, setFusePrice] = useState(null);
@@ -68,6 +75,11 @@ const AdminHome = ({
     if (admin.adminLoaded) {
       setTokenCount(admin[0].fuse_token_amount);
       setFusePrice(admin[0].fuse_price);
+    }
+    if (isAuthenticated) {
+      if (user.twoFactorSetup && !isTwoFactorVerified) {
+        history.push("/two-factor");
+      }
     }
   });
 

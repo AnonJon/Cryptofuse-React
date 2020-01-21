@@ -129,7 +129,8 @@ export const twoFactorLoginCode = ({ totpSecret, code }) => dispatch => {
       });
     } else {
       dispatch({
-        type: LOGIN_FAIL
+        type: "TWO_FACTOR_LOGIN_FAIL",
+        payload: "invalid code"
       });
     }
   });

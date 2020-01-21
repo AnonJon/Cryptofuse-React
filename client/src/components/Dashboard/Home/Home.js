@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import ChartistGraph from "react-chartist";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -54,23 +55,33 @@ import {
 
 const useStyles = makeStyles(styles);
 
-const Home = ({ auth, admin }) => {
+const Home = ({ auth, admin, history }) => {
   const classes = useStyles();
   const [fusePrice, setFusePrice] = useState(null);
   const [portValue, setPortValue] = useState("0.00");
+  const [coinTotal, setCoinTotal] = useState(null);
 
-  const { isAuthenticated, user } = auth;
+  const { isAuthenticated, user, isTwoFactorVerified } = auth;
 
   useEffect(() => {
     getAdmin();
   }, []);
 
   useEffect(() => {
-    if (admin.adminLoaded) {
+    if (admin.adminLoaded && isAuthenticated) {
       setFusePrice(admin[0].fuse_price);
       setPortValue(
         Math.round(user.coin_total * admin[0].fuse_price * 100) / 100
       );
+    }
+    if (isAuthenticated) {
+      setCoinTotal(user.coin_total);
+    }
+
+    if (isAuthenticated) {
+      if (user.twoFactorSetup && !isTwoFactorVerified) {
+        history.push("/two-factor");
+      }
     }
   });
 
@@ -128,7 +139,7 @@ const Home = ({ auth, admin }) => {
                 />
               </CardIcon>
               <p className={classes.cardCategory}>Fuse Tokens</p>
-              <h3 className={classes.cardTitle}>{user.coin_total}</h3>
+              <h3 className={classes.cardTitle}>{coinTotal}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>

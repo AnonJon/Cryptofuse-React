@@ -1,7 +1,7 @@
 import React from "react";
 import "../../App.css";
 import PortfolioChart from "./Portfolio-chart.js";
-import Button from "@material-ui/core/Button";
+import Button from "../Dashboard/components/CustomButtons/Button";
 import { Link } from "react-router-dom";
 
 export default class Portfolio extends React.Component {
@@ -186,16 +186,22 @@ export default class Portfolio extends React.Component {
               </p>
             </div>
           </div>
-          <div className="portfolio-right-wrapper">
-            <h1>Diversity Matters</h1>
-            <p>
-              Cryptofuse allows you to hold an entire diversified portfolio in
-              minutes. Click below to see how diversification leads to a healthy
-              portfolio.
-            </p>
-            <Link style={{ textDecoration: "none" }} to="/learn-more">
-              <Button variant="outlined">Learn More</Button>
-            </Link>
+          <div>
+            <div
+              className="portfolio-right-wrapper"
+              data-aos="fade-left"
+              data-aos-duration="2000"
+            >
+              <h1>Diversity Matters</h1>
+              <p>
+                Cryptofuse allows you to hold an entire diversified portfolio in
+                minutes. Click below to see how diversification leads to a
+                healthy portfolio.
+              </p>
+              <Link style={{ textDecoration: "none" }} to="/learn-more">
+                <Button color="primary">Learn More</Button>
+              </Link>
+            </div>
             <div>
               <PortfolioChart />
             </div>

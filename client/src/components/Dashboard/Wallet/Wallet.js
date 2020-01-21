@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
@@ -9,7 +9,8 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-
+import LoginPage from "../../Auth/LoginPage";
+import SnackbarError from "../../Auth/SnackbarError";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 import ReceiveModal from "./ReceiveModal";
@@ -43,9 +44,34 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Wallet = ({ auth }) => {
-  console.log(auth.user);
+const Wallet = ({ auth, history }) => {
+  const {
+    isAuthenticated,
+    user,
+    isTwoFactorVerified,
+    isLoaded,
+    isLoading
+  } = auth;
   const classes = useStyles();
+  const [bitcoin, setBitcoin] = useState(null);
+  useEffect(() => {
+    if (isAuthenticated) {
+      if (user.twoFactorSetup && !isTwoFactorVerified) {
+        history.push("/two-factor");
+      }
+    }
+
+    setBitcoin(user.bitcoin_amount);
+  });
+  if (isLoading || !isLoaded) {
+    return (
+      <div>
+        <LoginPage />
+        <SnackbarError />
+      </div>
+    );
+  }
+
   return (
     <div className={classes.main}>
       <Card profile>
@@ -59,9 +85,7 @@ const Wallet = ({ auth }) => {
           </a>
         </CardAvatar>
         <CardBody profile>
-          <h6 className={classes.cardCategory}>
-            {auth.user.bitcoin_amount} BTC
-          </h6>
+          <h6 className={classes.cardCategory}>{bitcoin} BTC</h6>
           <h4 className={classes.cardTitle}>$0.00 USD</h4>
 
           <div

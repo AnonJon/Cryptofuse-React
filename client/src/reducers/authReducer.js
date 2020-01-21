@@ -44,7 +44,8 @@ export default function(state = initialState, action) {
         ...action.payload,
         isAuthenticated: true,
         isLoading: false,
-        isLoaded: true
+        isLoaded: true,
+        isTwoFactorVerified: false
       };
     case "TWO_FACTOR_LOGIN_SUCCESS":
       return {
@@ -54,6 +55,12 @@ export default function(state = initialState, action) {
         isLoading: false,
         isLoaded: true,
         isTwoFactorVerified: true
+      };
+    case "TWO_FACTOR_LOGIN_FAIL":
+      return {
+        ...state,
+        isLoadedTwoFactor: false,
+        isTwoFactorVerified: false
       };
     case AUTH_ERROR:
     case LOGIN_FAIL:

@@ -85,7 +85,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const RegisterPage = ({ error, register, history, isAuthenticated }) => {
+const RegisterPage = ({
+  error,
+  register,
+  history,
+  isAuthenticated,
+  clearErrors
+}) => {
   const classes = useStyles();
   const [msg, setMsg] = useState(null);
   const [first_name, setFirst_name] = useState("");
@@ -133,9 +139,10 @@ const RegisterPage = ({ error, register, history, isAuthenticated }) => {
 
   const onSubmit = e => {
     e.preventDefault();
+    clearErrors();
     setMsg(null);
     setOpen(true);
-    clearErrors();
+
     const newUser = {
       first_name,
       last_name,

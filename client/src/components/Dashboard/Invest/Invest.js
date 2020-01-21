@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
@@ -60,7 +60,16 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Invest = ({ auth }) => {
+const Invest = ({ auth, history }) => {
+  const { isAuthenticated, user, isTwoFactorVerified } = auth;
+  useEffect(() => {
+    if (isAuthenticated) {
+      if (user.twoFactorSetup && !isTwoFactorVerified) {
+        history.push("/two-factor");
+      }
+    }
+  });
+
   const classes = useStyles();
   return (
     <div className={classes.main}>
@@ -117,7 +126,8 @@ const Invest = ({ auth }) => {
 };
 const mapStateToProps = state => {
   return {
-    auth: state.auth
+    auth: state.auth,
+    admin: state.admin
   };
 };
 
