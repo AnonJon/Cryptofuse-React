@@ -1,6 +1,9 @@
 import React from "react";
 import "../../App.css";
 import { Link } from "react-router-dom";
+import TwitterIcon from "@material-ui/icons/Twitter";
+import InstagramIcon from "@material-ui/icons/Instagram";
+import FacebookIcon from "@material-ui/icons/Facebook";
 
 const Footer = () => {
   return (
@@ -13,13 +16,18 @@ const Footer = () => {
             alt=""
           />
           <p>Diversified cryptocurrency involvement made easy and secure.</p>
-          <p >
+          <p>
             BLOCKCHAIN PARTNERS LIMITED 71-75 SHELTON ST COVENT GARDEN LONDON
             WC2H9JQ
           </p>
-          
+
           <h2>Payments Accepted</h2>
           <p>___</p>
+          <img
+            className="footer-bitcoin"
+            src={require("../../images/images/btc-80x80.png")}
+            alt=""
+          />
         </div>
         <div className="footer-mid">
           <h3>CONTACT DETAILS</h3>
@@ -30,14 +38,14 @@ const Footer = () => {
             alt=""
           />
 
-          <span>info@cryptofuse.net</span>
+          <span> info@cryptofuse.net</span>
           <br></br>
           <img
             className="footer-envelope"
             src={require("../../images/images/phone-call.svg")}
             alt=""
           />
-          <span>1-800-222-4545</span>
+          <span> 1-800-222-4545</span>
           <br></br>
           <img
             className="footer-envelope"
@@ -45,9 +53,12 @@ const Footer = () => {
             alt=""
           />
 
-          <span>Location</span>
+          <span> Location</span>
           <h3>CONNECT WITH US</h3>
           <p>___</p>
+          <TwitterIcon color="error" />
+          <InstagramIcon color="error" />
+          <FacebookIcon color="error" />
         </div>
         <div className="footer-right">
           <h3>MORE INFO</h3>

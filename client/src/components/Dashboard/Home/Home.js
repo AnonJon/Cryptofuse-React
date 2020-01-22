@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import axios from "axios";
 import ChartistGraph from "react-chartist";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -8,6 +8,7 @@ import Orders from "../Home/Orders";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import clsx from "clsx";
+import ChartBitcoin from "../Chart";
 import Chart3 from "../Chart3";
 import Completion from "./completion";
 import { connect } from "react-redux";
@@ -15,6 +16,7 @@ import { Link } from "react-router-dom";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Typography from "@material-ui/core/Typography";
 import { getAdmin } from "../../../actions/adminAuctions";
+import CircularProgress from "@material-ui/core/CircularProgress";
 //icons
 import Icon from "@material-ui/core/Icon";
 import FaceIcon from "@material-ui/icons/Face";
@@ -58,21 +60,64 @@ const useStyles = makeStyles(styles);
 const Home = ({ auth, admin, history }) => {
   const classes = useStyles();
   const [fusePrice, setFusePrice] = useState(null);
-  const [portValue, setPortValue] = useState("0.00");
+  const [portValue, setPortValue] = useState(null);
+  const [userPortValue, setUserPortValue] = useState(null);
   const [coinTotal, setCoinTotal] = useState(null);
+  const [data, setData] = useState({
+    bitcoin: 0,
+    ethereum: 0,
+    litecoin: 0,
+    dash: 0,
+    xrp: 0,
+    bitcoinCash: 0,
+    stellar: 0,
+    bat: 0,
+    nem: 0
+  });
 
   const { isAuthenticated, user, isTwoFactorVerified } = auth;
 
   useEffect(() => {
     getAdmin();
   }, []);
+  useEffect(() => {
+    axios
+      .get(
+        `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,XRP,LTC,BCH,DASH,XLM,XEM,BAT&tsyms=USD`
+      )
+      .then(data => {
+        setData({
+          bitcoin: data.data.RAW.BTC.USD.PRICE,
+          ethereum: data.data.RAW.ETH.USD.PRICE,
+          litecoin: data.data.RAW.LTC.USD.PRICE,
+          dash: data.data.RAW.DASH.USD.PRICE,
+          xrp: data.data.RAW.XRP.USD.PRICE,
+          bitcoinCash: data.data.RAW.BCH.USD.PRICE,
+          stellar: data.data.RAW.XLM.USD.PRICE,
+          bat: data.data.RAW.BAT.USD.PRICE,
+          nem: data.data.RAW.XEM.USD.PRICE
+        });
+      });
+  }, []);
 
   useEffect(() => {
     if (admin.adminLoaded && isAuthenticated) {
-      setFusePrice(admin[0].fuse_price);
-      setPortValue(
-        Math.round(user.coin_total * admin[0].fuse_price * 100) / 100
+      let finalPrice =
+        data.bitcoin * admin[0].bitcoin_total_amount +
+        data.ethereum * admin[0].ethereum_total_amount +
+        data.litecoin * admin[0].litecoin_total_amount +
+        data.dash * admin[0].dash_total_amount +
+        data.xrp * admin[0].xrp_total_amount +
+        data.bitcoinCash * admin[0].bitcoinCash_total_amount +
+        data.stellar * admin[0].stellar_total_amount +
+        data.bat * admin[0].bat_total_amount +
+        data.nem * admin[0].nem_total_amount;
+
+      setPortValue(Math.round(finalPrice * 100) / 100);
+      setFusePrice(
+        Math.round((portValue / admin[0].fuse_token_amount) * 100) / 100
       );
+      setUserPortValue(Math.round(user.coin_total * fusePrice * 100) / 100);
     }
     if (isAuthenticated) {
       setCoinTotal(user.coin_total);
@@ -99,7 +144,9 @@ const Home = ({ auth, admin, history }) => {
                 <AccountBalanceIcon />
               </CardIcon>
               <p className={classes.cardCategory}>Fuse Token Price</p>
-              <h3 className={classes.cardTitle}>${fusePrice}</h3>
+              <h3 className={classes.cardTitle}>
+                ${fusePrice == null ? <CircularProgress /> : fusePrice}
+              </h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -118,7 +165,7 @@ const Home = ({ auth, admin, history }) => {
                 <AttachMoneyIcon />
               </CardIcon>
               <p className={classes.cardCategory}>Portfolio Value</p>
-              <h3 className={classes.cardTitle}>${portValue}</h3>
+              <h3 className={classes.cardTitle}>${userPortValue}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -197,45 +244,32 @@ const Home = ({ auth, admin, history }) => {
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
-            <CardHeader color="warning">
-              <ChartistGraph
-                className="ct-chart"
-                data={emailsSubscriptionChart.data}
-                type="Bar"
-                options={emailsSubscriptionChart.options}
-                responsiveOptions={emailsSubscriptionChart.responsiveOptions}
-                listener={emailsSubscriptionChart.animation}
-              />
+            <CardHeader color="primary">
+              <Chart3 />
             </CardHeader>
             <CardBody>
-              <h4 className={classes.cardTitle}>Email Subscriptions</h4>
-              <p className={classes.cardCategory}>Last Campaign Performance</p>
+              <h4 className={classes.cardTitle}>Performance History</h4>
+              <p className={classes.cardCategory}>Portfolio</p>
             </CardBody>
             <CardFooter chart>
               <div className={classes.stats}>
-                <AccessTime /> campaign sent 2 days ago
+                <AccessTime /> last 12 months
               </div>
             </CardFooter>
           </Card>
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
-            <CardHeader color="primary">
-              <ChartistGraph
-                className="ct-chart"
-                data={completedTasksChart.data}
-                type="Line"
-                options={completedTasksChart.options}
-                listener={completedTasksChart.animation}
-              />
+            <CardHeader color="warning">
+              <ChartBitcoin />
             </CardHeader>
             <CardBody>
-              <h4 className={classes.cardTitle}>Completed Tasks</h4>
-              <p className={classes.cardCategory}>Last Campaign Performance</p>
+              <h4 className={classes.cardTitle}>Bitcoin</h4>
+              <p className={classes.cardCategory}>Weekly Performance</p>
             </CardBody>
             <CardFooter chart>
               <div className={classes.stats}>
-                <AccessTime /> campaign sent 2 days ago
+                <AccessTime /> for the week
               </div>
             </CardFooter>
           </Card>

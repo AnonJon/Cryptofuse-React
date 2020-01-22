@@ -1,8 +1,6 @@
 var Chartist = require("chartist");
+const axios = require("axios");
 
-// ##############################
-// // // variables used to create animation on charts
-// #############################
 var delays = 80,
   durations = 500;
 var delays2 = 80,
@@ -141,7 +139,7 @@ const completedTasksChart = {
       tension: 0
     }),
     low: 0,
-    high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+    high: 10000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
     chartPadding: {
       top: 0,
       right: 0,

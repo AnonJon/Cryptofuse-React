@@ -297,6 +297,7 @@ li {
   background: rgb(41, 47, 49);
   padding-top: 50px;
   flex-wrap: wrap;
+  padding-bottom: 20px;
 }
 .footer-left {
   max-width: 350px;
@@ -330,12 +331,21 @@ li {
 }
 .footer-mid p {
   color: rgb(216, 211, 211);
+  margin-top: -10px;
 }
 .footer-mid span {
   color: rgb(216, 211, 211);
 }
 .footer-right h3 {
   color: rgb(216, 211, 211);
+}
+.footer-right p {
+  color: rgb(216, 211, 211);
+  margin-top: -10px;
+}
+.footer-bitcoin {
+  height: 40px;
+  width: 40px;
 }
 /* ==========================================================Contact============================================== */
 

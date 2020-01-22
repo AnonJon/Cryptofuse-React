@@ -8,6 +8,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import PersonIcon from "@material-ui/icons/Person";
 import LoginPage from "../../Auth/LoginPage";
 import SnackbarError from "../../Auth/SnackbarError";
+import TwoFASetup from "./TwoFASetup";
 // core .
 import GridItem from "./Grid/GridItem.js";
 import GridContainer from "./Grid/GridContainer.js";
@@ -20,6 +21,14 @@ import CardBody from "./Card/CardBody.js";
 import CardFooter from "./Card/CardFooter";
 import TwoFactor from "../../Auth/TwoFactor";
 import Switch from "@material-ui/core/Switch";
+import CardHeader1 from "@material-ui/core/CardHeader";
+import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
+import IconButton from "@material-ui/core/IconButton";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 const styles = {
   cardCategoryWhite: {
@@ -55,6 +64,7 @@ const UserProfile = ({ auth, twoFactorSetup, history }) => {
     isAuthenticated
   } = auth;
   const [twoFA, setTwoFA] = useState(null);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -79,6 +89,13 @@ const UserProfile = ({ auth, twoFactorSetup, history }) => {
     setTwoFA(!twoFA);
 
     twoFactorSetup(user._id, twoFA);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleClick = () => {
+    setOpen(true);
   };
 
   const classes = useStyles();
@@ -123,6 +140,13 @@ const UserProfile = ({ auth, twoFactorSetup, history }) => {
         </GridItem>
         <GridItem xs={12} sm={12} md={5}>
           <Card profile>
+            <CardHeader1
+              action={
+                <IconButton onClick={handleClick}>
+                  <HelpOutlineIcon />
+                </IconButton>
+              }
+            />
             <CardBody profile>
               <h4 className={classes.cardCategory}>Set Up 2FA</h4>
 
@@ -237,6 +261,19 @@ const UserProfile = ({ auth, twoFactorSetup, history }) => {
           </Card>
         </GridItem>
       </GridContainer>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Two-Factor Setup</DialogTitle>
+        <DialogContent>
+          <DialogContentText tabIndex={-1}>
+            <TwoFASetup />
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Got It
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

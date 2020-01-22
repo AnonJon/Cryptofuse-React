@@ -4,11 +4,11 @@ const router = express.Router();
 const Admin = require("../../models/Admin");
 
 router.post("/", (req, res) => {
-  const { fuse_price, fuse_token_amount } = req.body;
-  const newAdmin = new Admin({
-    fuse_price,
-    fuse_token_amount
-  });
+  // const { fuse_price, fuse_token_amount } = req.body;
+  // const newAdmin = new Admin({
+  //   fuse_price,
+  //   fuse_token_amount
+  // });
 
   newAdmin.save().then(admin => res.json(admin));
 });

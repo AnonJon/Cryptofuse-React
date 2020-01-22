@@ -99,7 +99,7 @@ const TwoFactorLogin = ({
     const twoFactorCheck = { totpSecret, code };
     setTimeout(() => {
       twoFactorLoginCode(twoFactorCheck);
-    }, 3000);
+    }, 2000);
   };
 
   return (
