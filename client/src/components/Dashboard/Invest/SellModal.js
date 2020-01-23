@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import { getAdmin } from "../../../actions/adminAuctions";
+import axios from "axios";
 import Modal from "@material-ui/core/Modal";
 import Button from "../UserProfile/CustomButtons/Button";
 import IconButton from "@material-ui/core/IconButton";
@@ -78,20 +80,43 @@ const CssTextField = withStyles({
   }
 })(TextField);
 
-const SendModal = auth => {
+const SellModal = (admin, auth) => {
   const classes = useStyles();
 
   const [modalStyle] = useState(getModalStyle);
   const [open, setOpen] = useState(false);
-  const [address, setAddress] = useState("");
   const [amount, setAmount] = useState(null);
-  const [userBitcoin, setUserBitcoin] = useState(null);
+  const [fusePrice, setFusePrice] = useState(null);
+  const [bitcoinPrice, setBitcoinPrice] = useState(null);
+  const [fuseToUSD, setFuseToUSD] = useState(null);
+  const [userFuse, setUserFuse] = useState(null);
+  const [usdToBTC, setUSDtoBTC] = useState(null);
 
   const { user, isAuthenticated } = auth;
   useEffect(() => {
-    if (isAuthenticated) {
-      setUserBitcoin(user.bitcoin_amount);
+    getAdmin();
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(
+        `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC&tsyms=USD`
+      )
+      .then(data => {
+        setBitcoinPrice(data.data.RAW.BTC.USD.PRICE);
+      });
+  }, []);
+  useEffect(() => {
+    if (admin.admin.adminLoaded) {
+      setFusePrice(admin.admin[0].fuse_price);
     }
+    if (isAuthenticated) {
+      setUserFuse(user.coin_total);
+    }
+  });
+  useEffect(() => {
+    setFuseToUSD(fusePrice * amount);
+    setUSDtoBTC(Math.round((fuseToUSD / bitcoinPrice) * 10000) / 10000);
   });
   const handleOpen = () => {
     setOpen(true);
@@ -100,17 +125,14 @@ const SendModal = auth => {
   const handleClose = () => {
     setOpen(false);
   };
-  const onChangeAddress = e => {
-    setAddress(e.target.value);
-  };
   const onChangeAmount = e => {
-    setAmount(e.target.value);
+    setAmount(Number(e.target.value));
   };
+
   const handleSubmit = e => {
     e.preventDefault();
 
-    const send = { address, amount };
-    if (userBitcoin > amount) {
+    if (userFuse > amount) {
       handleClose();
     }
   };
@@ -118,7 +140,7 @@ const SendModal = auth => {
   return (
     <div>
       <Button color="primary" type="button" onClick={handleOpen}>
-        Send
+        Sell
       </Button>
       <Modal open={open} onClose={handleClose}>
         <div style={modalStyle} className={classes.paper}>
@@ -132,26 +154,23 @@ const SendModal = auth => {
           <Container className={classes.container}>
             <form className={classes.form} onSubmit={handleSubmit}>
               <CssTextField
-                id="address"
-                name="address"
-                onChange={onChangeAddress}
-                label="Bitcoin Address"
+                id="amount"
+                name="amount"
+                onChange={onChangeAmount}
+                label="Fuse Token Amount"
                 type="text"
                 margin="normal"
                 required
                 autoFocus
               />
-              <CssTextField
-                id="amount"
-                name="amount"
-                onChange={onChangeAmount}
-                label="BTC"
-                type="text"
-                margin="normal"
-                required
-              />
+              <h5>Bitcoin Exchange Amount:</h5>
+              <p>
+                {userFuse < amount
+                  ? "Not enough Fuse tokens"
+                  : `${usdToBTC} BTC`}
+              </p>
               <Button color="primary" type="submit">
-                Send
+                Sell
               </Button>
             </form>
           </Container>
@@ -167,4 +186,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default withRouter(connect(mapStateToProps, null)(SendModal));
+export default withRouter(connect(mapStateToProps, { getAdmin })(SellModal));

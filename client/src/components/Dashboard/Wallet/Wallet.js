@@ -17,6 +17,7 @@ import ReceiveModal from "./ReceiveModal";
 import SendModal from "./SendModal";
 
 import Card from "../UserProfile/Card/Card.js";
+import CardHeader from "../UserProfile/Card/CardHeader.js";
 
 import CardAvatar from "../UserProfile/Card/CardAvatar";
 import CardBody from "../UserProfile/Card/CardBody.js";
@@ -39,8 +40,25 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "center"
   },
   main: {
-    paddingTop: "100px",
-    backgroundColor: "#F0F0F0"
+    paddingTop: "120px",
+    backgroundColor: "#F0F0F0",
+    paddingBottom: "100px"
+  },
+  cardCategoryWhite: {
+    color: "rgba(255,255,255,.62)",
+    margin: "0",
+    fontSize: "14px",
+    marginTop: "0",
+    marginBottom: "0"
+  },
+  cardTitleWhite: {
+    color: "#FFFFFF",
+    marginTop: "0px",
+    minHeight: "auto",
+    fontWeight: "300",
+    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    marginBottom: "3px",
+    textDecoration: "none"
   }
 }));
 
@@ -60,8 +78,9 @@ const Wallet = ({ auth, history }) => {
         history.push("/two-factor");
       }
     }
-
-    setBitcoin(user.bitcoin_amount);
+    if (isAuthenticated) {
+      setBitcoin(user.bitcoin_amount);
+    }
   });
   if (isLoading || !isLoaded) {
     return (
@@ -74,51 +93,57 @@ const Wallet = ({ auth, history }) => {
 
   return (
     <div className={classes.main}>
-      <Card profile>
-        <CardAvatar profile>
-          <a href="#pablo" onClick={e => e.preventDefault()}>
+      <div style={{ paddingBottom: "40px" }}>
+        <CardHeader color="primary">
+          <h4 className={classes.cardTitleWhite}>Wallet</h4>
+          <p className={classes.cardCategoryWhite}>Send & Receive</p>
+        </CardHeader>
+      </div>
+      <Container>
+        <Card profile>
+          <CardAvatar profile>
             <img
               className="#"
               src={require("../../../images/images/btc-80x80.png")}
               alt=""
             />
-          </a>
-        </CardAvatar>
-        <CardBody profile>
-          <h6 className={classes.cardCategory}>{bitcoin} BTC</h6>
-          <h4 className={classes.cardTitle}>$0.00 USD</h4>
+          </CardAvatar>
+          <CardBody profile>
+            <h6 className={classes.cardCategory}>{bitcoin} BTC</h6>
+            <h4 className={classes.cardTitle}>$0.00 USD</h4>
 
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              paddingBottom: "15px"
-            }}
-          >
-            <SendModal />
-            <ReceiveModal />
-          </div>
-
-          <ExpansionPanel>
-            <ExpansionPanelSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                paddingBottom: "15px"
+              }}
             >
-              <Typography className={classes.heading}>Description</Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <Typography>
-                The cryptocurrency that started it all, Bitcoin is the first
-                digital currency to solve the "double spending" or
-                counterfeiting problem without the aid of a central authority,
-                such as a bank or a government, making Bitcoin truly
-                peer-to-peer.
-              </Typography>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-        </CardBody>
-      </Card>
+              <SendModal />
+              <ReceiveModal />
+            </div>
+
+            <ExpansionPanel>
+              <ExpansionPanelSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography className={classes.heading}>Description</Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <Typography>
+                  The cryptocurrency that started it all, Bitcoin is the first
+                  digital currency to solve the "double spending" or
+                  counterfeiting problem without the aid of a central authority,
+                  such as a bank or a government, making Bitcoin truly
+                  peer-to-peer.
+                </Typography>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+          </CardBody>
+        </Card>
+      </Container>
     </div>
   );
 };

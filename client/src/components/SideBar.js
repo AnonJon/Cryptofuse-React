@@ -195,7 +195,6 @@ function SideBar(props) {
               </Link>
             </Typography>
 
-            {isAuthenticated ? `Welcome ${user.first_name}` : ""}
             <IconButton color="inherit">
               <Badge badgeContent={0} color="default">
                 {isAuthenticated ? (

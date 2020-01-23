@@ -36,7 +36,7 @@ export default function GraphData() {
     <div className={classes.main}>
       <Container maxWidth="lg" className={classes.container}>
         <Grid container spacing={2}>
-          <Grid item xs={12} md={4} lg={2}>
+          <Grid item xs={6} md={4} lg={2}>
             <Paper className={fixedHeightPaper}>
               <SimpleModal
                 src={require("../../../images/btc-80x80.png")}
