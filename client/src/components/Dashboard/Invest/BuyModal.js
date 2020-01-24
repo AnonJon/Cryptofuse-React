@@ -10,6 +10,7 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import { TextField, Container } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
+import SnackBarFundsError from "../../Auth/SnackBarFundsError";
 
 function getModalStyle() {
   const top = 50;
@@ -126,7 +127,7 @@ const BuyModal = (admin, auth) => {
     setOpen(false);
   };
   const onChangeAmount = e => {
-    setAmount(Number(e.target.value));
+    setAmount(e.target.value);
   };
 
   const handleSubmit = e => {

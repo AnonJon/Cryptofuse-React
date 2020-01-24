@@ -8,13 +8,13 @@ import IconButton from "@material-ui/core/IconButton";
 import PersonIcon from "@material-ui/icons/Person";
 import Tooltip from "@material-ui/core/Tooltip";
 import Fade from "@material-ui/core/Fade";
+import BackGround from "../images/topMedu1.jpg";
 
 const useStyles = makeStyles(theme => ({
   container: {
-    backgroundColor: "rgb(178,67, 87)",
-
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    background: "rgb(41,48, 49)"
   },
   icon: {
     color: "white",

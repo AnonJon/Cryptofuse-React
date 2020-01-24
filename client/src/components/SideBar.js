@@ -10,9 +10,11 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import BarChartIcon from "@material-ui/icons/BarChart";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import Badge from "@material-ui/core/Badge";
+import SchoolIcon from "@material-ui/icons/School";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -115,6 +117,10 @@ function SideBar(props) {
           <ListItemText primary="Contact" />
         </ListItem>
       </Link>
+
+      <ReactTooltip />
+
+      <div style={{ backgroundColor: "#F0F0F0", height: "500px" }}></div>
     </div>
   );
 

@@ -68,12 +68,11 @@ const UserProfile = ({ auth, twoFactorSetup, history }) => {
 
   useEffect(() => {
     if (isAuthenticated) {
+      setTwoFA(user.twoFactorSetup);
       if (user.twoFactorSetup && !isTwoFactorVerified) {
         history.push("/two-factor");
       }
     }
-
-    setTwoFA(user.twoFactorSetup);
   });
   const ranking = () => {
     if (user.coin_total < 100) {

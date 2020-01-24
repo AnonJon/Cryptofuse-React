@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import QRCode from "qrcode.react";
 import Button from "../Dashboard/UserProfile/CustomButtons/Button";
 import { connect } from "react-redux";
@@ -14,7 +14,16 @@ import { updateTOTP } from "../../actions/userActions";
 
 const TwoFactor = ({ updateTOTP, auth }) => {
   const [open, setOpen] = useState(false);
-  const { user } = auth;
+  const [email, setEmail] = useState(null);
+  const [totpSecret, setTotpSecret] = useState(null);
+  const { user, isAuthenticated } = auth;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      setEmail(user.email);
+      setTotpSecret(user.totpSecret);
+    }
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -37,7 +46,7 @@ const TwoFactor = ({ updateTOTP, auth }) => {
         </DialogTitle>
         <DialogContent dividers>
           <QRCode
-            value={`otpauth://totp/${user.email}?secret=${user.totpSecret}&issuer=Cryptofuse`}
+            value={`otpauth://totp/${email}?secret=${totpSecret}&issuer=Cryptofuse`}
             level="H"
             includeMargin={true}
           />

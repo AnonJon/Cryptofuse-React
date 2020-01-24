@@ -106,6 +106,32 @@ const MainListItems = props => {
           <ListItemText primary="Wallet" />
         </ListItem>
       </Link>
+      <Link
+        data-tip="Learn More"
+        to="/learn-more"
+        exact
+        style={{ textDecoration: "none", color: "black" }}
+      >
+        <ListItem button>
+          <ListItemIcon>
+            <SchoolIcon />
+          </ListItemIcon>
+          <ListItemText primary="Learn More" />
+        </ListItem>
+      </Link>
+      <Link
+        data-tip="Portfolio"
+        to="/portfolio"
+        exact
+        style={{ textDecoration: "none", color: "black" }}
+      >
+        <ListItem button>
+          <ListItemIcon>
+            <BarChartIcon />
+          </ListItemIcon>
+          <ListItemText primary="Portfolio" />
+        </ListItem>
+      </Link>
 
       <Logout />
     </div>
