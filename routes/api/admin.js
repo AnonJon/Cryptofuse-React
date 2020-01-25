@@ -34,6 +34,18 @@ router.patch("/updateFusePrice", async (req, res) => {
   }
 });
 
+//push to fuse_price array
+router.put("/pushFusePrice", async (req, res) => {
+  try {
+    const pushFusePrice = await Admin.updateOne({
+      $push: { fuse_price_history: [req.body.fuse_price_history] }
+    });
+    res.json(pushFusePrice);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+
 //update admin fuse_token_amount
 router.patch("/updateFuseTokenAmount", async (req, res) => {
   try {

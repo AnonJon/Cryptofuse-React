@@ -8,6 +8,9 @@ const AdminSchema = new Schema({
     type: Number,
     default: 0.0
   },
+  fuse_price_history: {
+    type: [Number]
+  },
   fuse_token_amount: {
     type: Number,
     default: 57211.32

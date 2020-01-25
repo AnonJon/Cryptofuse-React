@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
@@ -78,7 +79,14 @@ const Invest = ({ auth, history, admin }) => {
       }
     }
     if (isAuthenticated) {
-      setBitcoin(user.bitcoin_amount);
+      axios
+        .get(
+          `https://api.blockcypher.com/v1/bcy/test/addrs/${user.receiveAddress}/full`
+        )
+        .then(res => {
+          setBitcoin(res.data.balance);
+        });
+
       setFuseCoins(user.coin_total);
     }
   });

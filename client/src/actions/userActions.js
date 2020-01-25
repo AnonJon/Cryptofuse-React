@@ -126,3 +126,40 @@ export const twoFactorSetup = (id, twoFactorSetup) => dispatch => {
       })
     );
 };
+
+//Push Portfolio_value_array
+
+export const portfolioPriceHistory = (
+  id,
+  portfolio_price_history
+) => dispatch => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+  const body = JSON.stringify({ portfolio_price_history });
+  axios.patch(`/api/users/pushPortfolioPrice/${id}`, body, config).then(res =>
+    dispatch({
+      type: "PUSH_PORTFOLIO_PRICE",
+      value: { id: id, portfolio_price_history: portfolio_price_history }
+    })
+  );
+};
+
+// Get user Bitcoin amount
+
+export const getUserBitcoinAmount = receiveAddress => {
+  return dispatch => {
+    fetch(
+      `https://api.blockcypher.com/v1/bcy/test/addrs/${receiveAddress}/full`
+    )
+      .then(res => res.json())
+      .then(res => {
+        dispatch({
+          type: "BITCOIN_AMOUNT",
+          payload: res
+        });
+      });
+  };
+};

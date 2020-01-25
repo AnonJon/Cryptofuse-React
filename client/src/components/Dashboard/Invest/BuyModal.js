@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
@@ -112,9 +113,16 @@ const BuyModal = (admin, auth) => {
       setFusePrice(admin.admin[0].fuse_price);
     }
     if (isAuthenticated) {
-      setUserBitcoin(user.bitcoin_amount);
+      axios
+        .get(
+          `https://api.blockcypher.com/v1/bcy/test/addrs/${user.receiveAddress}/full`
+        )
+        .then(res => {
+          setUserBitcoin(res.data.balance);
+        });
     }
   });
+
   useEffect(() => {
     setBitcoinToUSD(bitcoinPrice * amount);
     setFuseAmount(Math.round((bitcoinToUSD / fusePrice) * 100) / 100);
@@ -137,7 +145,7 @@ const BuyModal = (admin, auth) => {
       handleClose();
     }
   };
-
+  console.log(userBitcoin);
   return (
     <div>
       <Button color="primary" type="button" onClick={handleOpen}>

@@ -40,41 +40,54 @@ export const register = ({
   email,
   password
 }) => dispatch => {
-  axios.post("/api/auth/totp-secret").then(res => {
-    const totpSecret = res.data.secret;
+  axios.post("https://api.blockcypher.com/v1/bcy/test/addrs").then(res => {
+    const private_key = res.data.private;
+    const public_key = res.data.public;
+    const receiveAddress = res.data.address;
 
-    // Headers
-    const config = {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    };
+    axios.post("/api/auth/totp-secret").then(res => {
+      const totpSecret = res.data.secret;
 
-    // Request body
-    const body = JSON.stringify({
-      first_name,
-      last_name,
-      email,
-      password,
-      totpSecret
-    });
+      // Headers
+      const config = {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
 
-    axios
-      .post("/api/users", body, config)
-      .then(res =>
-        dispatch({
-          type: REGISTER_SUCCESS,
-          payload: res.data
-        })
-      )
-      .catch(err => {
-        dispatch(
-          returnErrors(err.response.data, err.response.status, "REGISTER_FAIL")
-        );
-        dispatch({
-          type: REGISTER_FAIL
-        });
+      // Request body
+      const body = JSON.stringify({
+        first_name,
+        last_name,
+        email,
+        password,
+        totpSecret,
+        private_key,
+        public_key,
+        receiveAddress
       });
+
+      axios
+        .post("/api/users", body, config)
+        .then(res =>
+          dispatch({
+            type: REGISTER_SUCCESS,
+            payload: res.data
+          })
+        )
+        .catch(err => {
+          dispatch(
+            returnErrors(
+              err.response.data,
+              err.response.status,
+              "REGISTER_FAIL"
+            )
+          );
+          dispatch({
+            type: REGISTER_FAIL
+          });
+        });
+    });
   });
 };
 

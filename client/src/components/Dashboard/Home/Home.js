@@ -9,7 +9,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import clsx from "clsx";
 import ChartBitcoin from "../Chart";
-import Chart3 from "../Chart3";
+import FuseWeeklyChart from "../FuseWeeklyChart";
+import PortfolioValueChart from "../PortfolioValueChart";
 import Completion from "./completion";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -218,16 +219,10 @@ const Home = ({ auth, admin, history }) => {
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
             <CardHeader color="success">
-              <ChartistGraph
-                className="ct-chart"
-                data={dailySalesChart.data}
-                type="Line"
-                options={dailySalesChart.options}
-                listener={dailySalesChart.animation}
-              />
+              <PortfolioValueChart />
             </CardHeader>
             <CardBody>
-              <h4 className={classes.cardTitle}>Daily Sales</h4>
+              <h4 className={classes.cardTitle}>Portfolio Value History</h4>
               <p className={classes.cardCategory}>
                 <span className={classes.successText}>
                   <ArrowUpward className={classes.upArrowCardCategory} /> 55%
@@ -237,7 +232,7 @@ const Home = ({ auth, admin, history }) => {
             </CardBody>
             <CardFooter chart>
               <div className={classes.stats}>
-                <AccessTime /> updated 4 minutes ago
+                <AccessTime /> updated 1 day ago
               </div>
             </CardFooter>
           </Card>
@@ -245,7 +240,7 @@ const Home = ({ auth, admin, history }) => {
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
             <CardHeader color="primary">
-              <Chart3 />
+              <FuseWeeklyChart />
             </CardHeader>
             <CardBody>
               <h4 className={classes.cardTitle}>Performance History</h4>
@@ -253,7 +248,7 @@ const Home = ({ auth, admin, history }) => {
             </CardBody>
             <CardFooter chart>
               <div className={classes.stats}>
-                <AccessTime /> last 12 months
+                <AccessTime /> last 30 days
               </div>
             </CardFooter>
           </Card>

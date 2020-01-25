@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
+import { getUserBitcoinAmount } from "../../../actions/userActions";
 
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
@@ -62,7 +63,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Wallet = ({ auth, history }) => {
+const Wallet = ({ auth, history, getUserBitcoinAmount }) => {
   const {
     isAuthenticated,
     user,
@@ -72,6 +73,8 @@ const Wallet = ({ auth, history }) => {
   } = auth;
   const classes = useStyles();
   const [bitcoin, setBitcoin] = useState(null);
+  const [bitcoinPrice, setBitcoinPrice] = useState(null);
+
   useEffect(() => {
     if (isAuthenticated) {
       if (user.twoFactorSetup && !isTwoFactorVerified) {
@@ -79,9 +82,26 @@ const Wallet = ({ auth, history }) => {
       }
     }
     if (isAuthenticated) {
-      setBitcoin(user.bitcoin_amount);
+      axios
+        .get(
+          `https://api.blockcypher.com/v1/bcy/test/addrs/${user.receiveAddress}/full`
+        )
+        .then(res => {
+          console.log(res.data);
+          setBitcoin(res.data.balance);
+        });
     }
   });
+  useEffect(() => {
+    axios
+      .get(
+        `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC&tsyms=USD`
+      )
+      .then(data => {
+        setBitcoinPrice(data.data.RAW.BTC.USD.PRICE);
+      });
+  }, []);
+
   if (isLoading || !isLoaded) {
     return (
       <div>
@@ -110,7 +130,9 @@ const Wallet = ({ auth, history }) => {
           </CardAvatar>
           <CardBody profile>
             <h6 className={classes.cardCategory}>{bitcoin} BTC</h6>
-            <h4 className={classes.cardTitle}>$0.00 USD</h4>
+            <h4 className={classes.cardTitle}>
+              ${Math.round((bitcoinPrice * bitcoin * 100) / 100)} USD
+            </h4>
 
             <div
               style={{
@@ -153,4 +175,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default withRouter(connect(mapStateToProps, null)(Wallet));
+export default withRouter(
+  connect(mapStateToProps, { getUserBitcoinAmount })(Wallet)
+);

@@ -99,6 +99,19 @@ router.patch("/updateCoinTotal/:userId", async (req, res) => {
     res.json({ message: err });
   }
 });
+
+//push user portfolio_price_history
+router.put("/pushPortfolioPrice/:userId", async (req, res) => {
+  try {
+    const pushPortfolioPrice = await User.updateOne(
+      { _id: req.params.userId },
+      { $push: { portfolio_price_history: [req.body.portfolio_price_history] } }
+    );
+    res.json(pushPortfolioPrice);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
 //update two-factor sign in
 router.patch("/updateTwoFactorSignin/:userId", async (req, res) => {
   try {
@@ -126,7 +139,16 @@ router.patch("/updateTOTP/:userId", async (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const { first_name, last_name, email, password, totpSecret } = req.body;
+  const {
+    first_name,
+    last_name,
+    email,
+    password,
+    totpSecret,
+    private_key,
+    public_key,
+    receiveAddress
+  } = req.body;
 
   // Simple validation
   if (!first_name || !last_name || !email || !password) {
@@ -142,7 +164,10 @@ router.post("/", (req, res) => {
       last_name,
       email,
       password,
-      totpSecret
+      totpSecret,
+      private_key,
+      public_key,
+      receiveAddress
     });
 
     // Create salt & hash
@@ -166,15 +191,15 @@ router.post("/", (req, res) => {
                   email: user.email,
                   coin_total: user.coin_total,
                   receiveAddress: user.receiveAddress,
-                  extendedPublicKey: user.extendedPublicKey,
+                  private_key: user.private_key,
+                  public_key: user.public_key,
                   bitcoin_amount: user.bitcoin_amount,
                   totpSecret: user.totpSecret,
                   city: user.address.city,
                   country: user.address.country,
                   about: user.about,
                   twoFactorSetup: user.twoFactorSetup,
-                  twoFactorVarify: user.twoFactorVarify,
-                  test: user.test
+                  twoFactorVarify: user.twoFactorVarify
                 }
               });
             }

@@ -32,7 +32,11 @@ const UserSchema = new Schema({
     type: String,
     default: ""
   },
-  extendedPublicKey: {
+  private_key: {
+    type: String,
+    default: ""
+  },
+  public_key: {
     type: String,
     default: ""
   },
@@ -65,6 +69,9 @@ const UserSchema = new Schema({
   twoFactorVerify: {
     type: Boolean,
     default: false
+  },
+  portfolio_price_history: {
+    type: [Number]
   }
 });
 
