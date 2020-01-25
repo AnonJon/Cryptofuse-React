@@ -33,14 +33,23 @@ li {
   align-items: center;
   list-style: none;
 }
+
+.main-homePage {
+  overflow-x: hidden;
+  width: 100%vw;
+}
 .logo {
   height: 50px;
   width: 254px;
 }
+.logo-homePage {
+  height: 90px;
+  width: 450px;
+}
 
 .title {
-  position: relative;
   height: 1200px;
+  width: 100%;
   text-align: center;
   background: linear-gradient(
     360deg,
@@ -391,12 +400,33 @@ li {
   color: aquamarine;
 }
 
-@media only screen and (max-width: 550px) {
+@media only screen and (max-width: 375px) {
   .title-div {
     color: white;
     position: absolute;
     top: 25%;
     left: 5%;
+  }
+  .logo-homePage {
+    height: 70px;
+    width: 270px;
+  }
+  .logo {
+    height: 30;
+    width: 200px;
+  }
+}
+
+@media only screen and (min-width: 376px) and (max-width: 550px) {
+  .title-div {
+    color: white;
+    position: absolute;
+    top: 25%;
+    left: 10%;
+  }
+  .logo-homePage {
+    height: 70px;
+    width: 300px;
   }
 }
 
