@@ -139,7 +139,7 @@ export const portfolioPriceHistory = (
     }
   };
   const body = JSON.stringify({ portfolio_price_history });
-  axios.patch(`/api/users/pushPortfolioPrice/${id}`, body, config).then(res =>
+  axios.put(`/api/users/pushPortfolioPrice/${id}`, body, config).then(res =>
     dispatch({
       type: "PUSH_PORTFOLIO_PRICE",
       value: { id: id, portfolio_price_history: portfolio_price_history }

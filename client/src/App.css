@@ -85,6 +85,10 @@ li {
   height: 150px;
   width: 200px;
 }
+.carousalPic {
+  height: 300px;
+  width: 400px;
+}
 
 .home-stats {
   display: flex;
@@ -184,6 +188,12 @@ li {
 }
 .ourCompany {
   text-align: center;
+  padding-top: 50px;
+}
+.ourCompany p {
+  padding-top: 20px;
+  font-weight: 400;
+  font-style: italic;
 }
 .whatWeDo {
   display: flex;

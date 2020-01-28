@@ -50,3 +50,23 @@ export const updateFuseTokenAmount = fuse_token_amount => dispatch => {
     })
   );
 };
+
+//push to fuse price chart
+
+export const pushFusePrice = fuse_price_history => dispatch => {
+  // Headers
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+  // Request body
+  const body = JSON.stringify({ fuse_price_history });
+
+  axios.put(`/api/admin/pushFusePrice`, body, config).then(res =>
+    dispatch({
+      type: "PUSH_FUSE_TOKEN_PRICE",
+      value: { fuse_price_history: fuse_price_history }
+    })
+  );
+};

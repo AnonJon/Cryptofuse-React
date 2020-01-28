@@ -4,16 +4,16 @@ import { connect } from "react-redux";
 import { getAdmin } from "../../actions/adminAuctions";
 
 const PortfolioValueChart = ({ admin, auth }) => {
-  const [fuseHistory, setFuseHistory] = useState([]);
+  const [portfolioHistory, setPortfolioHistory] = useState([]);
 
-  const { isAuthenticated } = auth;
+  const { isAuthenticated, user } = auth;
 
   useEffect(() => {
-    if (admin.adminLoaded) {
-      setFuseHistory(admin[0].fuse_price_history);
+    if (isAuthenticated) {
+      setPortfolioHistory(user.portfolio_price_history);
     }
   });
-  console.log(admin);
+
   let options = {
     options: {
       chart: {
@@ -124,11 +124,11 @@ const PortfolioValueChart = ({ admin, auth }) => {
     series: [
       {
         name: "Portfolio Value USD",
-        data: fuseHistory
+        data: portfolioHistory
       }
     ]
   };
-  console.log(series.series);
+
   return (
     <div>
       <Chart options={options.options} series={series.series} type="line" />

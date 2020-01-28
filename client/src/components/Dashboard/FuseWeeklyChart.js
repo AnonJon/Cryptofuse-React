@@ -13,7 +13,7 @@ const FuseWeeklyChart = ({ admin, auth }) => {
       setFuseHistory(admin[0].fuse_price_history);
     }
   });
-  console.log(admin);
+
   let options = {
     options: {
       chart: {
@@ -128,7 +128,7 @@ const FuseWeeklyChart = ({ admin, auth }) => {
       }
     ]
   };
-  console.log(series.series);
+
   return (
     <div>
       <Chart options={options.options} series={series.series} type="line" />

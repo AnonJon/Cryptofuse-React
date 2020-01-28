@@ -71,7 +71,8 @@ const UserSchema = new Schema({
     default: false
   },
   portfolio_price_history: {
-    type: [Number]
+    type: [Number],
+    default: [0]
   }
 });
 

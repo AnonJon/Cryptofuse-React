@@ -53,7 +53,7 @@ router.post("/", (req, res) => {
               about: user.about,
               twoFactorSetup: user.twoFactorSetup,
               twoFactorVarify: user.twoFactorVarify,
-              test: user.test
+              portfolio_price_history: user.portfolio_price_history
             }
           });
         }

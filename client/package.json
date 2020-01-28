@@ -12,6 +12,7 @@
     "chart.js": "^2.9.3",
     "chartist": "^0.11.4",
     "classnames": "^2.2.6",
+    "cron": "^1.8.2",
     "http-proxy-middleware": "^0.20.0",
     "jquery": "^3.4.1",
     "popper.js": "^1.16.0",

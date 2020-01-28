@@ -48,7 +48,11 @@ const Learnmore = () => {
         </video>
       </div>
       <div className="ourCompany">
-        <h1>Our Company</h1>
+        <img
+          alt=""
+          className="logo-homePage"
+          src={require("../../images/logo-1.png")}
+        />
         <p>
           Our team is dedicated to the advancement of the blockchain world and
           assisting others to safely participate in it.

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+
 import ChartistGraph from "react-chartist";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -16,7 +17,8 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Typography from "@material-ui/core/Typography";
-import { getAdmin } from "../../../actions/adminAuctions";
+import { getAdmin, pushFusePrice } from "../../../actions/adminAuctions";
+import { portfolioPriceHistory } from "../../../actions/userActions";
 import CircularProgress from "@material-ui/core/CircularProgress";
 //icons
 import Icon from "@material-ui/core/Icon";
@@ -55,10 +57,16 @@ import {
   emailsSubscriptionChart,
   completedTasksChart
 } from "../../variables/charts";
-
+const CronJob = require("cron").CronJob;
 const useStyles = makeStyles(styles);
 
-const Home = ({ auth, admin, history }) => {
+const Home = ({
+  auth,
+  admin,
+  history,
+  pushFusePrice,
+  portfolioPriceHistory
+}) => {
   const classes = useStyles();
   const [fusePrice, setFusePrice] = useState(null);
   const [portValue, setPortValue] = useState(null);
@@ -119,7 +127,12 @@ const Home = ({ auth, admin, history }) => {
         Math.round((portValue / admin[0].fuse_token_amount) * 100) / 100
       );
       setUserPortValue(Math.round(user.coin_total * fusePrice * 100) / 100);
+      if (userPortValue == null || userPortValue == 0) {
+      } else {
+        portfolioPriceHistory(user._id, userPortValue);
+      }
     }
+
     if (isAuthenticated) {
       setCoinTotal(user.coin_total);
     }
@@ -129,6 +142,19 @@ const Home = ({ auth, admin, history }) => {
         history.push("/two-factor");
       }
     }
+    var job = new CronJob(
+      "00 00 09 * * 0-6",
+      function() {
+        if (fusePrice == null || fusePrice == 0) {
+        } else {
+          pushFusePrice(fusePrice);
+        }
+      },
+      null,
+      true,
+      "America/Los_Angeles"
+    );
+    job.start();
   });
 
   const ifAuth = (
@@ -225,9 +251,9 @@ const Home = ({ auth, admin, history }) => {
               <h4 className={classes.cardTitle}>Portfolio Value History</h4>
               <p className={classes.cardCategory}>
                 <span className={classes.successText}>
-                  <ArrowUpward className={classes.upArrowCardCategory} /> 55%
+                  <ArrowUpward className={classes.upArrowCardCategory} /> 0%
                 </span>{" "}
-                increase in today sales.
+                increase in portfolio value
               </p>
             </CardBody>
             <CardFooter chart>
@@ -243,8 +269,8 @@ const Home = ({ auth, admin, history }) => {
               <FuseWeeklyChart />
             </CardHeader>
             <CardBody>
-              <h4 className={classes.cardTitle}>Performance History</h4>
-              <p className={classes.cardCategory}>Portfolio</p>
+              <h4 className={classes.cardTitle}>Fuse Performance History</h4>
+              <p className={classes.cardCategory}>Fuse Token</p>
             </CardBody>
             <CardFooter chart>
               <div className={classes.stats}>
@@ -289,4 +315,8 @@ const mapStateToProps = state => ({
   auth: state.auth,
   admin: state.admin
 });
-export default connect(mapStateToProps, { getAdmin })(Home);
+export default connect(mapStateToProps, {
+  getAdmin,
+  pushFusePrice,
+  portfolioPriceHistory
+})(Home);
