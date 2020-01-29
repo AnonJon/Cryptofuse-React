@@ -50,6 +50,10 @@ const AdminSchema = new Schema({
   nem_total_amount: {
     type: Number,
     default: 8533.17959
+  },
+  dateChanged: {
+    type: Number,
+    default: 29
   }
 });
 

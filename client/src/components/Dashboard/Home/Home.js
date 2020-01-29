@@ -17,7 +17,11 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Typography from "@material-ui/core/Typography";
-import { getAdmin, pushFusePrice } from "../../../actions/adminAuctions";
+import {
+  getAdmin,
+  pushFusePrice,
+  updatePriceDate
+} from "../../../actions/adminAuctions";
 import { portfolioPriceHistory } from "../../../actions/userActions";
 import CircularProgress from "@material-ui/core/CircularProgress";
 //icons
@@ -52,11 +56,7 @@ import GridItem from "../components/Grid/GridItem.js";
 import LoginPage from "../../Auth/LoginPage";
 import SnackbarError from "../../Auth/SnackbarError";
 import styles from "../../../assets/jss/material-dashboard-react/views/dashboardStyle";
-import {
-  dailySalesChart,
-  emailsSubscriptionChart,
-  completedTasksChart
-} from "../../variables/charts";
+
 const CronJob = require("cron").CronJob;
 const useStyles = makeStyles(styles);
 
@@ -65,7 +65,8 @@ const Home = ({
   admin,
   history,
   pushFusePrice,
-  portfolioPriceHistory
+  portfolioPriceHistory,
+  updatePriceDate
 }) => {
   const classes = useStyles();
   const [fusePrice, setFusePrice] = useState(null);
@@ -83,6 +84,7 @@ const Home = ({
     bat: 0,
     nem: 0
   });
+  const [date, setDate] = useState(null);
 
   const { isAuthenticated, user, isTwoFactorVerified } = auth;
 
@@ -131,6 +133,13 @@ const Home = ({
       } else {
         portfolioPriceHistory(user._id, userPortValue);
       }
+      setDate(admin[0].priceUpdated);
+
+      let d = new Date();
+      if (d.getDate() != date && date != null) {
+        pushFusePrice(fusePrice);
+        updatePriceDate(date);
+      }
     }
 
     if (isAuthenticated) {
@@ -142,19 +151,6 @@ const Home = ({
         history.push("/two-factor");
       }
     }
-    var job = new CronJob(
-      "00 00 09 * * 0-6",
-      function() {
-        if (fusePrice == null || fusePrice == 0) {
-        } else {
-          pushFusePrice(fusePrice);
-        }
-      },
-      null,
-      true,
-      "America/Los_Angeles"
-    );
-    job.start();
   });
 
   const ifAuth = (
@@ -318,5 +314,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   getAdmin,
   pushFusePrice,
-  portfolioPriceHistory
+  portfolioPriceHistory,
+  updatePriceDate
 })(Home);

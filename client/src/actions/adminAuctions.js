@@ -70,3 +70,23 @@ export const pushFusePrice = fuse_price_history => dispatch => {
     })
   );
 };
+
+//update last changed price
+
+export const updatePriceDate = date => dispatch => {
+  // Headers
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+  // Request body
+  const body = JSON.stringify({ date });
+
+  axios.put(`/api/admin/lastUpdated`, body, config).then(res =>
+    dispatch({
+      type: "UPDATE_PRICE_DATE",
+      value: { date: date }
+    })
+  );
+};

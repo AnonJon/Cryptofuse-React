@@ -20,6 +20,7 @@
   "devDependencies": {},
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "bitcoinjs-lib": "^5.1.7",
     "blockchain.info": "^2.12.1",
     "bootstrap": "^4.4.1",
     "concurrently": "^4.1.2",
