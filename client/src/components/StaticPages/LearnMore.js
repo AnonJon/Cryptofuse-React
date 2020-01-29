@@ -105,6 +105,11 @@ const Learnmore = () => {
             data-aos="fade-up"
             data-aos-duration="1000"
           >
+            <img
+              className="#"
+              src={require("../../images/images/diversity.svg")}
+              alt=""
+            />
             <h3>Diversified Portfolio</h3>
             <p>Diversify evenly between all of the top cryptocurrencies.</p>
           </div>
@@ -113,7 +118,11 @@ const Learnmore = () => {
             data-aos="fade-up"
             data-aos-duration="1000"
           >
-            <LockLottie />
+            <img
+              className="#"
+              src={require("../../images/images/vault.svg")}
+              alt=""
+            />
             <h3>Cold Storage Safety</h3>
             <p>Completely offline cold storage with 3rd party verification.</p>
           </div>
@@ -124,7 +133,7 @@ const Learnmore = () => {
           >
             <img
               className="#"
-              src={require("../../images/images/receive.svg")}
+              src={require("../../images/images/law.svg")}
               alt=""
             />
             <h3>Monthly Rebalancing</h3>
