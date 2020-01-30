@@ -93,6 +93,7 @@ const Home = ({
   useEffect(() => {
     getAdmin();
   }, []);
+
   useEffect(() => {
     axios
       .get(
@@ -131,20 +132,18 @@ const Home = ({
       setFusePrice(
         Math.round((portValue / admin[0].fuse_token_amount) * 100) / 100
       );
-
-      setUserPortValue(Math.round(user.coin_total * fusePrice * 100) / 100);
-      if (d.getDate() != date && userPortValue != null) {
-        portfolioPriceHistory(user._id, userPortValue);
-      } else {
-      }
       setDate(admin[0].priceUpdated);
 
-      if (d.getDate() != date && date != null) {
+      setUserPortValue(Math.round(user.coin_total * fusePrice * 100) / 100);
+
+      if (date != d.getDate() && date != null) {
+        console.log("wrong date");
+        updatePriceDate(d.getDate());
         pushFusePrice(fusePrice);
-        updatePriceDate(date);
-      }
-      if (d.getDate() != date && fusePrice != null) {
         updateFusePrice(fusePrice);
+        if (userPortValue != null) {
+          portfolioPriceHistory(user._id, userPortValue);
+        }
       }
     }
 

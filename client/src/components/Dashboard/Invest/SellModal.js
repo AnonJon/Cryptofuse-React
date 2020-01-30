@@ -164,11 +164,7 @@ const SellModal = (admin, auth) => {
                 autoFocus
               />
               <h5>Bitcoin Exchange Amount:</h5>
-              <p>
-                {userFuse < amount
-                  ? "Not enough Fuse tokens"
-                  : `${usdToBTC} BTC`}
-              </p>
+              <p>{usdToBTC}</p>
               <Button color="primary" type="submit">
                 Sell
               </Button>

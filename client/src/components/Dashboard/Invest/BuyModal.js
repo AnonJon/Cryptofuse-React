@@ -173,11 +173,7 @@ const BuyModal = (admin, auth) => {
                 autoFocus
               />
               <h5>Fuse Tokens Exchange Amount:</h5>
-              <p>
-                {userBitcoin < amount
-                  ? "Not enough Bitcoin"
-                  : `${fuseAmount} Fuse`}
-              </p>
+              <p>{fuseAmount}</p>
               <Button color="primary" type="submit">
                 Buy
               </Button>

@@ -11,7 +11,7 @@ import Homepage from "./components/StaticPages/Homepage";
 import Footer from "./components/StaticPages/Footer";
 import Learnmore from "./components/StaticPages/LearnMore";
 import Portfolio from "./components/StaticPages/Portfolio";
-import GraphData from "./components/Dashboard/GraphData/GraphData";
+import GraphData2 from "./components/Dashboard/GraphData/GraphData2";
 import Home from "./components/Dashboard/Home/Home";
 import AdminHome from "./components/AdminDashboard/AdminHome";
 import LoginPage from "./components/Auth/LoginPage";
@@ -45,7 +45,7 @@ class App extends Component {
             <Route path="/two-factor" component={TwoFactorLogin} />
             <Route path="/register" component={RegisterPage} />
             <Route exact path="/dashboard" component={Home} />
-            <Route path="/dashboard/graph-data" component={GraphData} />
+            <Route path="/dashboard/graph-data" component={GraphData2} />
             <Route path="/dashboard/wallet" component={Wallet} />
             <Route path="/dashboard/invest" component={Invest} />
             <Route path="/dashboard/profile" component={UserProfile} />

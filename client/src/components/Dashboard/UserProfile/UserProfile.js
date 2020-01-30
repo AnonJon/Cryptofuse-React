@@ -98,8 +98,6 @@ const UserProfile = ({ auth, twoFactorSetup, history }) => {
       setTwoFA(true);
       setButton(true);
     }
-
-    console.log(twoFA);
   };
 
   const handleClose = () => {

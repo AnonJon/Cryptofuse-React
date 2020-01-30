@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Alert } from "reactstrap";
 import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
+import Button from "../Dashboard/components/CustomButtons/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -165,12 +165,7 @@ const LoginPage = ({
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            style={{ backgroundColor: "rgb(178,67, 87)", color: "white" }}
-          >
+          <Button type="submit" fullWidth variant="contained" color="primary">
             Login
           </Button>
           <Grid container>

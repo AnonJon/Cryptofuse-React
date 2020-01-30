@@ -73,7 +73,7 @@ export const pushFusePrice = fuse_price_history => dispatch => {
 
 //update last changed price
 
-export const updatePriceDate = date => dispatch => {
+export const updatePriceDate = priceUpdated => dispatch => {
   // Headers
   const config = {
     headers: {
@@ -81,12 +81,12 @@ export const updatePriceDate = date => dispatch => {
     }
   };
   // Request body
-  const body = JSON.stringify({ date });
+  const body = JSON.stringify({ priceUpdated });
 
-  axios.put(`/api/admin/lastUpdated`, body, config).then(res =>
+  axios.patch(`/api/admin/lastUpdated`, body, config).then(res =>
     dispatch({
       type: "UPDATE_PRICE_DATE",
-      value: { date: date }
+      value: { priceUpdated: priceUpdated }
     })
   );
 };
