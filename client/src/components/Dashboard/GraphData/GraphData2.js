@@ -28,7 +28,7 @@ export default function GraphData2() {
       <GridContainer>
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
-            <CardHeader color="success">
+            <CardHeader color="rose">
               <CoinGraph name="Bitcoin" coin="BTC" />
             </CardHeader>
             <CardBody>
@@ -46,7 +46,7 @@ export default function GraphData2() {
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
-            <CardHeader color="primary">
+            <CardHeader color="rose">
               <CoinGraph name="Ethereum" coin="ETH" />
             </CardHeader>
             <CardBody>
@@ -64,7 +64,7 @@ export default function GraphData2() {
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
-            <CardHeader color="warning">
+            <CardHeader color="rose">
               <CoinGraph name="XRP" coin="XRP" />
             </CardHeader>
             <CardBody>
@@ -84,7 +84,7 @@ export default function GraphData2() {
       <GridContainer>
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
-            <CardHeader color="success">
+            <CardHeader color="rose">
               <CoinGraph name="Litecoin" coin="LTC" />
             </CardHeader>
             <CardBody>
@@ -102,7 +102,7 @@ export default function GraphData2() {
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
-            <CardHeader color="primary">
+            <CardHeader color="rose">
               <CoinGraph name="Bitcoin Cash" coin="BCH" />
             </CardHeader>
             <CardBody>
@@ -120,7 +120,7 @@ export default function GraphData2() {
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
-            <CardHeader color="warning">
+            <CardHeader color="rose">
               <CoinGraph name="Dash" coin="DASH" />
             </CardHeader>
             <CardBody>
@@ -140,7 +140,7 @@ export default function GraphData2() {
       <GridContainer>
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
-            <CardHeader color="success">
+            <CardHeader color="rose">
               <CoinGraph name="Stellar" coin="XLM" />
             </CardHeader>
             <CardBody>
@@ -158,7 +158,7 @@ export default function GraphData2() {
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
-            <CardHeader color="primary">
+            <CardHeader color="rose">
               <CoinGraph name="Basic Attention Token" coin="BAT" />
             </CardHeader>
             <CardBody>
@@ -176,7 +176,7 @@ export default function GraphData2() {
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
-            <CardHeader color="danger">
+            <CardHeader color="rose">
               <CoinGraph name="NEM" coin="XEM" />
             </CardHeader>
             <CardBody>

@@ -17,6 +17,7 @@ import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import EditIcon from "@material-ui/icons/Edit";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
+import DynamicFeedIcon from "@material-ui/icons/DynamicFeed";
 
 import { Link } from "react-router-dom";
 
@@ -130,6 +131,19 @@ const MainListItems = props => {
             <BarChartIcon />
           </ListItemIcon>
           <ListItemText primary="Portfolio" />
+        </ListItem>
+      </Link>
+      <Link
+        data-tip="News"
+        to="/dashboard/news"
+        exact
+        style={{ textDecoration: "none", color: "black" }}
+      >
+        <ListItem button>
+          <ListItemIcon>
+            <DynamicFeedIcon />
+          </ListItemIcon>
+          <ListItemText primary="News" />
         </ListItem>
       </Link>
 

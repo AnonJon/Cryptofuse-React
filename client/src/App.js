@@ -6,7 +6,7 @@ import { loadUser } from "./actions/authActions";
 import { getAdmin } from "./actions/adminAuctions";
 
 import SideBar from "./components/SideBar";
-
+import News from "./components/Dashboard/News/News";
 import Homepage from "./components/StaticPages/Homepage";
 import Footer from "./components/StaticPages/Footer";
 import Learnmore from "./components/StaticPages/LearnMore";
@@ -49,6 +49,7 @@ class App extends Component {
             <Route path="/dashboard/wallet" component={Wallet} />
             <Route path="/dashboard/invest" component={Invest} />
             <Route path="/dashboard/profile" component={UserProfile} />
+            <Route path="/dashboard/news" component={News} />
           </Switch>
           <Footer />
         </Router>

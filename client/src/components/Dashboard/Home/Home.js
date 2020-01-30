@@ -58,7 +58,7 @@ import LoginPage from "../../Auth/LoginPage";
 import SnackbarError from "../../Auth/SnackbarError";
 import styles from "../../../assets/jss/material-dashboard-react/views/dashboardStyle";
 
-const CronJob = require("cron").CronJob;
+
 const useStyles = makeStyles(styles);
 
 const Home = ({
