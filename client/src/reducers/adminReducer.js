@@ -11,7 +11,7 @@ export default (state = initialState, action) => {
         adminLoaded: true
       };
     case "UPDATE_FUSE_PRICE":
-      let admin = [...state];
+      let admin = { ...state };
       admin.fuse_price = action.value.fuse_price;
       return admin;
     case "UPDATE_FUSE_TOKEN_AMOUNT":

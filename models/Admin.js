@@ -51,7 +51,7 @@ const AdminSchema = new Schema({
     type: Number,
     default: 8533.17959
   },
-  dateChanged: {
+  priceUpdated: {
     type: Number,
     default: 29
   }

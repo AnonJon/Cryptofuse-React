@@ -20,7 +20,8 @@ import Typography from "@material-ui/core/Typography";
 import {
   getAdmin,
   pushFusePrice,
-  updatePriceDate
+  updatePriceDate,
+  updateFusePrice
 } from "../../../actions/adminAuctions";
 import { portfolioPriceHistory } from "../../../actions/userActions";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -66,7 +67,8 @@ const Home = ({
   history,
   pushFusePrice,
   portfolioPriceHistory,
-  updatePriceDate
+  updatePriceDate,
+  updateFusePrice
 }) => {
   const classes = useStyles();
   const [fusePrice, setFusePrice] = useState(null);
@@ -124,21 +126,25 @@ const Home = ({
         data.bat * admin[0].bat_total_amount +
         data.nem * admin[0].nem_total_amount;
 
+      let d = new Date();
       setPortValue(Math.round(finalPrice * 100) / 100);
       setFusePrice(
         Math.round((portValue / admin[0].fuse_token_amount) * 100) / 100
       );
+
       setUserPortValue(Math.round(user.coin_total * fusePrice * 100) / 100);
-      if (userPortValue == null || userPortValue == 0) {
-      } else {
+      if (d.getDate() != date && userPortValue != null) {
         portfolioPriceHistory(user._id, userPortValue);
+      } else {
       }
       setDate(admin[0].priceUpdated);
 
-      let d = new Date();
       if (d.getDate() != date && date != null) {
         pushFusePrice(fusePrice);
         updatePriceDate(date);
+      }
+      if (d.getDate() != date && fusePrice != null) {
+        updateFusePrice(fusePrice);
       }
     }
 
@@ -315,5 +321,6 @@ export default connect(mapStateToProps, {
   getAdmin,
   pushFusePrice,
   portfolioPriceHistory,
-  updatePriceDate
+  updatePriceDate,
+  updateFusePrice
 })(Home);

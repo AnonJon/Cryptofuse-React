@@ -87,7 +87,7 @@ const Wallet = ({ auth, history, getUserBitcoinAmount }) => {
           `https://api.blockcypher.com/v1/bcy/test/addrs/${user.receiveAddress}/full`
         )
         .then(res => {
-          console.log(res.data);
+          
           setBitcoin(res.data.balance);
         });
     }

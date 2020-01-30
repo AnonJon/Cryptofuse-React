@@ -65,6 +65,7 @@ const UserProfile = ({ auth, twoFactorSetup, history }) => {
   } = auth;
   const [twoFA, setTwoFA] = useState(null);
   const [open, setOpen] = useState(false);
+  const [button, setButton] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -72,8 +73,12 @@ const UserProfile = ({ auth, twoFactorSetup, history }) => {
       if (user.twoFactorSetup && !isTwoFactorVerified) {
         history.push("/two-factor");
       }
+      if (user.twoFactorSetup) {
+        setButton(true);
+      }
     }
   });
+
   const ranking = () => {
     if (user.coin_total < 100) {
       return <p>Bronze User</p>;
@@ -83,11 +88,18 @@ const UserProfile = ({ auth, twoFactorSetup, history }) => {
       return <p>Gold User</p>;
     }
   };
-
   const handleChange = () => {
-    setTwoFA(!twoFA);
+    if (twoFA) {
+      twoFactorSetup(user._id, false);
+      setTwoFA(false);
+      setButton(false);
+    } else {
+      twoFactorSetup(user._id, true);
+      setTwoFA(true);
+      setButton(true);
+    }
 
-    twoFactorSetup(user._id, twoFA);
+    console.log(twoFA);
   };
 
   const handleClose = () => {
@@ -152,8 +164,16 @@ const UserProfile = ({ auth, twoFactorSetup, history }) => {
               <p className={classes.description}>
                 Please Set Up 2FA If Not Done So.
               </p>
-              <Switch checked={twoFA} onChange={handleChange} value={twoFA} />
-              <TwoFactor />
+              {twoFA ? (
+                <Button color="success" onClick={handleChange} round>
+                  Shut Down 2FA
+                </Button>
+              ) : (
+                <Button color="warning" onClick={handleChange} round>
+                  Activate 2FA
+                </Button>
+              )}
+              {button ? <TwoFactor /> : null}
             </CardBody>
           </Card>
         </GridItem>
