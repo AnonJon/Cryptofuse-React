@@ -145,7 +145,7 @@ const BuyModal = (admin, auth) => {
       handleClose();
     }
   };
-  console.log(userBitcoin);
+
   return (
     <div>
       <Button color="primary" type="button" onClick={handleOpen}>

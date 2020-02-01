@@ -33,7 +33,6 @@ export default class Portfolio extends React.Component {
       BAT: data.DISPLAY.BAT.USD,
       XEM: data.DISPLAY.XEM.USD
     });
-    console.log(this.state.BTC);
   }
 
   render() {

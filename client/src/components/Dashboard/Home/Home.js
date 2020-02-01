@@ -58,7 +58,6 @@ import LoginPage from "../../Auth/LoginPage";
 import SnackbarError from "../../Auth/SnackbarError";
 import styles from "../../../assets/jss/material-dashboard-react/views/dashboardStyle";
 
-
 const useStyles = makeStyles(styles);
 
 const Home = ({
@@ -139,7 +138,7 @@ const Home = ({
       if (date != d.getDate() && date != null) {
         console.log("wrong date");
         updatePriceDate(d.getDate());
-        pushFusePrice(fusePrice);
+
         updateFusePrice(fusePrice);
         if (userPortValue != null) {
           portfolioPriceHistory(user._id, userPortValue);
@@ -157,6 +156,13 @@ const Home = ({
       }
     }
   });
+  useEffect(() => {
+    let d = new Date();
+    if (date !== d.getDate() && fusePrice != null) {
+      pushFusePrice(fusePrice);
+      console.log("fuse price pushed");
+    }
+  }, [date]);
 
   const ifAuth = (
     <div style={{ marginTop: "100px" }}>

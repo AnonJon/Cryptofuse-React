@@ -28,7 +28,6 @@ export default function News() {
         setNews(res.data.Data);
       });
   }, []);
-  console.log(news[0]);
 
   let articleSection = news.map((article, index) => {
     return (
