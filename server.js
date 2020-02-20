@@ -44,10 +44,5 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
-setInterval(function() {
-  http.get("http://cryptofuse-react.herokuapp.com");
-  console.log("pinning");
-}, 300000); // pings every 5 minutes (300000)
-
 
 app.listen(PORT, () => `Server running on port ${PORT}`);
