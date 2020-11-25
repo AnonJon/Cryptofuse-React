@@ -20,11 +20,11 @@
   "devDependencies": {},
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "bitcoinjs-lib": "^5.1.7",
+    "bitcoinjs-lib": "^5.2.0",
     "blockchain.info": "^2.12.1",
-    "bootstrap": "^4.4.1",
+    "bootstrap": "^4.5.3",
     "concurrently": "^4.1.2",
-    "config": "^3.2.4",
+    "config": "^3.3.2",
     "cors": "^2.8.5",
     "cron": "^1.8.2",
     "dotenv": "^8.2.0",
@@ -32,10 +32,10 @@
     "http-proxy-middleware": "^0.20.0",
     "jquery": "^3.5.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.8.7",
-    "nodemailer": "^6.4.2",
+    "mongoose": "^5.10.15",
+    "nodemailer": "^6.4.16",
     "nodemon": "^1.19.4",
-    "popper.js": "^1.16.0",
+    "popper.js": "^1.16.1",
     "speakeasy": "^2.0.0"
   }
 }
