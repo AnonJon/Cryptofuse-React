@@ -140,9 +140,9 @@ const Home = ({
         updatePriceDate(d.getDate());
 
         updateFusePrice(fusePrice);
-        if (userPortValue != null) {
-          portfolioPriceHistory(user._id, userPortValue);
-        }
+        // if (userPortValue != null) {
+        //   portfolioPriceHistory(user._id, userPortValue);
+        // }
       }
     }
 
@@ -155,14 +155,14 @@ const Home = ({
         history.push("/two-factor");
       }
     }
-  });
-  useEffect(() => {
-    let d = new Date();
-    if (date !== d.getDate() && fusePrice != null) {
-      pushFusePrice(fusePrice);
-      console.log("fuse price pushed");
-    }
-  }, [date]);
+  }, );
+  // useEffect(() => {
+  //   let d = new Date();
+  //   if (date !== d.getDate() && fusePrice != null && fusePrice != 0) {
+  //     pushFusePrice(fusePrice);
+  //     console.log("fuse price pushed");
+  //   }
+  // }, [date]);
 
   const ifAuth = (
     <div style={{ marginTop: "100px" }}>

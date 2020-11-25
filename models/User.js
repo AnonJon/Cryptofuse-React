@@ -73,6 +73,10 @@ const UserSchema = new Schema({
   portfolio_price_history: {
     type: [Number],
     default: [0]
+  },
+  admin_status: {
+    type: Boolean,
+    default: false
   }
 });
 

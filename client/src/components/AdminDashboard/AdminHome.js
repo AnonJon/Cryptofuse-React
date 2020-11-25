@@ -83,7 +83,7 @@ const AdminHome = ({
     }
   });
 
-  if (!isLoaded || user.first_name !== "admin") {
+  if (!isLoaded || user.admin_status !== true) {
     return (
       <div>
         <LoginPage />

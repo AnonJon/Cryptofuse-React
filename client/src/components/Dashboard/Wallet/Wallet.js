@@ -141,8 +141,8 @@ const Wallet = ({ auth, history, getUserBitcoinAmount }) => {
                 paddingBottom: "15px"
               }}
             >
-              <SendModal />
-              <ReceiveModal />
+              {/* <SendModal />
+              <ReceiveModal /> */}
             </div>
 
             <ExpansionPanel>

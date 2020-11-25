@@ -81,7 +81,7 @@ const MainListItems = props => {
           <ListItemText primary="Graph Data" />
         </ListItem>
       </Link>
-      {isAuthenticated && user.first_name === "admin" ? (
+      {isAuthenticated && user.admin_status === true ? (
         <Link
           data-tip="Admin Dashboard"
           to="/admin"

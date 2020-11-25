@@ -130,8 +130,8 @@ const Invest = ({ auth, history, admin }) => {
                 paddingBottom: "15px"
               }}
             >
-              <BuyModal />
-              <SellModal />
+              {/* <BuyModal />
+              <SellModal /> */}
             </div>
 
             <ExpansionPanel>
