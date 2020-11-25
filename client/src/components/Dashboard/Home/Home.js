@@ -148,6 +148,7 @@ const Home = ({
 
     if (isAuthenticated) {
       setCoinTotal(user.coin_total);
+      console.log()
     }
 
     if (isAuthenticated) {
